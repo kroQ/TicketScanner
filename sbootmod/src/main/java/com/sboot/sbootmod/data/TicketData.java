@@ -1,31 +1,76 @@
 package com.sboot.sbootmod.data;
 
+import javax.persistence.*;
 import java.util.Date;
-import java.util.Objects;
 
 /**
  * Created by Mateusz Krok on 2018-03-15
  */
 
+@Entity
+@Table(name = "TICKETS")
 public class TicketData {
 
+    // TODO private inrefrace to sex field
+
+    public TicketData(String name, String surname, String email, int eventId, String city, String street, String flatNr, char sex, Date birthDate, int phone, String seatNumber, String code) {
+        this.name = name;
+        this.surname = surname;
+        this.email = email;
+        this.eventId = eventId;
+        this.city = city;
+        this.street = street;
+        this.flatNr = flatNr;
+        this.sex = sex;
+        this.birthDate = birthDate;
+        this.phone = phone;
+        this.seatNumber = seatNumber;
+        this.code = code;
+    }
+
+    public TicketData() {
+    }
+
+    @Id
+    @Column(name="TIC_ID")
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
-    private String title;
-    private Date generateDate;
-    private Date startEventDate;
-    private int clientId;
-    private int eanCode;
+
+    @Column(name="TIC_NAME")
+    private String name;
+
+    @Column(name="TIC_SURNAME")
+    private String surname;
+
+    @Column(name="TIC_EMAIL")
+    private String email;
+
+    @Column(name="TIC_EVENT_ID")
+    private int eventId;
+
+    @Column(name="TIC_CITY")
+    private String city;
+
+    @Column(name="TIC_STREET")
+    private String street;
+
+    @Column(name="TIC_FLAT_NR")
+    private String flatNr;
+
+    @Column(name="TIC_SEX")
+    private char sex;
+
+    @Column(name="TIC_BIRTH_DATE")
+    private Date birthDate;
+
+    @Column(name="TIC_PHONE")
+    private int phone;
+
+    @Column(name="TIC_SEAT_NR")
     private String seatNumber;
 
-    public TicketData(int id, String title, Date generateDate, Date startEventDate, int clientId, int eanCode, String seatNumber) {
-        this.id = id;
-        this.title = title;
-        this.generateDate = generateDate;
-        this.startEventDate = startEventDate;
-        this.clientId = clientId;
-        this.eanCode = eanCode;
-        this.seatNumber = seatNumber;
-    }
+    @Column(name="TIC_CODE")
+    private String code;
 
     public int getId() {
         return id;
@@ -35,44 +80,84 @@ public class TicketData {
         this.id = id;
     }
 
-    public String getTitle() {
-        return title;
+    public String getName() {
+        return name;
     }
 
-    public void setTitle(String title) {
-        this.title = title;
+    public void setName(String name) {
+        this.name = name;
     }
 
-    public Date getGenerateDate() {
-        return generateDate;
+    public String getSurname() {
+        return surname;
     }
 
-    public void setGenerateDate(Date generateDate) {
-        this.generateDate = generateDate;
+    public void setSurname(String surname) {
+        this.surname = surname;
     }
 
-    public Date getStartEventDate() {
-        return startEventDate;
+    public String getEmail() {
+        return email;
     }
 
-    public void setStartEventDate(Date startEventDate) {
-        this.startEventDate = startEventDate;
+    public void setEmail(String email) {
+        this.email = email;
     }
 
-    public int getClientId() {
-        return clientId;
+    public int getEventId() {
+        return eventId;
     }
 
-    public void setClientId(int clientId) {
-        this.clientId = clientId;
+    public void setEventId(int eventId) {
+        this.eventId = eventId;
     }
 
-    public int getEanCode() {
-        return eanCode;
+    public String getCity() {
+        return city;
     }
 
-    public void setEanCode(int eanCode) {
-        this.eanCode = eanCode;
+    public void setCity(String city) {
+        this.city = city;
+    }
+
+    public String getStreet() {
+        return street;
+    }
+
+    public void setStreet(String street) {
+        this.street = street;
+    }
+
+    public String getFlatNr() {
+        return flatNr;
+    }
+
+    public void setFlatNr(String flatNr) {
+        this.flatNr = flatNr;
+    }
+
+    public char getSex() {
+        return sex;
+    }
+
+    public void setSex(char sex) {
+        this.sex = sex;
+    }
+
+    public Date getBirthDate() {
+        return birthDate;
+    }
+
+    public void setBirthDate(Date birthDate) {
+        this.birthDate = birthDate;
+    }
+
+    public int getPhone() {
+        return phone;
+    }
+
+    public void setPhone(int phone) {
+        this.phone = phone;
     }
 
     public String getSeatNumber() {
@@ -83,36 +168,12 @@ public class TicketData {
         this.seatNumber = seatNumber;
     }
 
-    @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
-        TicketData that = (TicketData) o;
-        return id == that.id &&
-                clientId == that.clientId &&
-                eanCode == that.eanCode &&
-                Objects.equals(title, that.title) &&
-                Objects.equals(generateDate, that.generateDate) &&
-                Objects.equals(startEventDate, that.startEventDate) &&
-                Objects.equals(seatNumber, that.seatNumber);
+    public String getCode() {
+        return code;
     }
 
-    @Override
-    public int hashCode() {
-
-        return Objects.hash(id, title, generateDate, startEventDate, clientId, eanCode, seatNumber);
+    public void setCode(String code) {
+        this.code = code;
     }
 
-    @Override
-    public String toString() {
-        return "TicketData{" +
-                "id=" + id +
-                ", title='" + title + '\'' +
-                ", generateDate=" + generateDate +
-                ", startEventDate=" + startEventDate +
-                ", clientId=" + clientId +
-                ", eanCode=" + eanCode +
-                ", seatNumber='" + seatNumber + '\'' +
-                '}';
-    }
 }
