@@ -3,4 +3,7 @@
  */
 
 public class JustTest {
+
+    public JustTest() {
+    }
 }
