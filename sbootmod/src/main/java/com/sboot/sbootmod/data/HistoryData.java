@@ -35,6 +35,18 @@ public class HistoryData {
     @Column(name = "HIS_TIME")
     private LocalTime time;
 
+    public HistoryData() {
+    }
+
+    public HistoryData(int ticketId, int userId, boolean isInside, int eventId, Date date, LocalTime time) {
+        this.ticketId = ticketId;
+        this.userId = userId;
+        this.isInside = isInside;
+        this.eventId = eventId;
+        this.date = date;
+        this.time = time;
+    }
+
     public int getId() {
         return id;
     }
@@ -89,5 +101,18 @@ public class HistoryData {
 
     public void setTime(LocalTime time) {
         this.time = time;
+    }
+
+    @Override
+    public String toString() {
+        return "HistoryData{" +
+                "id=" + id +
+                ", ticketId=" + ticketId +
+                ", userId=" + userId +
+                ", isInside=" + isInside +
+                ", eventId=" + eventId +
+                ", date=" + date +
+                ", time=" + time +
+                '}';
     }
 }
