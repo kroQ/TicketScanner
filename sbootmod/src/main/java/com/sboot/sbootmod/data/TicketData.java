@@ -176,4 +176,22 @@ public class TicketData {
         this.code = code;
     }
 
+    @Override
+    public String toString() {
+        return "TicketData{" +
+                "id=" + id +
+                ", name='" + name + '\'' +
+                ", surname='" + surname + '\'' +
+                ", email='" + email + '\'' +
+                ", eventId=" + eventId +
+                ", city='" + city + '\'' +
+                ", street='" + street + '\'' +
+                ", flatNr='" + flatNr + '\'' +
+                ", sex=" + sex +
+                ", birthDate=" + birthDate +
+                ", phone=" + phone +
+                ", seatNumber='" + seatNumber + '\'' +
+                ", code='" + code + '\'' +
+                '}';
+    }
 }

@@ -1,6 +1,7 @@
 package com.sboot.sbootmod;
 
-import com.sboot.sbootmod.data.ClientData;
+import com.sboot.sbootmod.data.ZZZ;
+import com.sboot.sbootmod.dto.service.DBQuery;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
@@ -39,7 +40,7 @@ public class SbootmodApplication {
 
     @RequestMapping("create/{name}/{surname}/{nickname}/{password}/{email}")
     public String createUser(@PathVariable String name, @PathVariable String surname, @PathVariable String nickname, @PathVariable String password, @PathVariable String email) {
-        dbQuery.ge(new ClientData(name, surname, nickname, password, email));
+        dbQuery.ge(new ZZZ(name, surname, nickname, password, email));
         return "Created: " + dbQuery.getName(name);
     }
 

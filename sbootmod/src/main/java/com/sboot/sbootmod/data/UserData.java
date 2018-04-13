@@ -1,7 +1,6 @@
 package com.sboot.sbootmod.data;
 
 import javax.persistence.*;
-import java.util.Date;
 
 /**
  * Created by Mateusz Krok on 2018-04-09
@@ -22,28 +21,28 @@ public class UserData {
     @Column(name = "USR_SURNAME")
     private String surname;
 
-    @Column(name = "USR_PASSWORD")
-    private String password;
+    @Column(name = "USR_LOGIN")
+    private String login;
 
     @Column(name = "USR_EMAIL")
     private String email;
 
-    @Column(name = "USR_LOGIN")
-    private String login;
+    @Column(name = "USR_PASSWORD")
+    private String password;
 
     @Column(name = "USR_DEVICE_ID")
-    private Date birthDate;
+    private int deviceId;
 
     public UserData() {
     }
 
-    public UserData(String name, String surname, String password, String email, String login, Date birthDate) {
+    public UserData(String name, String surname, String password, String email, String login, int deviceId) {
         this.name = name;
         this.surname = surname;
         this.password = password;
         this.email = email;
         this.login = login;
-        this.birthDate = birthDate;
+        this.deviceId = deviceId;
     }
 
     public int getId() {
@@ -94,12 +93,12 @@ public class UserData {
         this.login = login;
     }
 
-    public Date getBirthDate() {
-        return birthDate;
+    public int getDeviceId() {
+        return deviceId;
     }
 
-    public void setBirthDate(Date birthDate) {
-        this.birthDate = birthDate;
+    public void setDeviceId(int deviceId) {
+        this.deviceId = deviceId;
     }
 
     @Override
@@ -111,7 +110,7 @@ public class UserData {
                 ", password='" + password + '\'' +
                 ", email='" + email + '\'' +
                 ", login='" + login + '\'' +
-                ", birthDate=" + birthDate +
+                ", birthDate=" + deviceId +
                 '}';
     }
 }

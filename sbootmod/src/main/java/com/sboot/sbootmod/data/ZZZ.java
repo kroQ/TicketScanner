@@ -10,7 +10,7 @@ import java.util.Date;
 
 @Entity
 @Table(name = "client")
-public class ClientData {
+public class ZZZ {
 
     @Id
     @Column(name="id")
@@ -29,10 +29,10 @@ public class ClientData {
     @Column(name="birth_date")
     private Date birthDate;
 
-    public ClientData() {
+    public ZZZ() {
     }
 
-    public ClientData(String name, String surname, String nickname, String password, String email) {
+    public ZZZ(String name, String surname, String nickname, String password, String email) {
         this.name = name;
         this.surname = surname;
         this.nickname = nickname;
@@ -46,7 +46,7 @@ public class ClientData {
 
     @Override
     public String toString() {
-        return "ClientData{" +
+        return "ZZZ{" +
                 "id=" + id +
                 ", name='" + name + '\'' +
                 ", surname='" + surname + '\'' +

@@ -25,6 +25,12 @@ import org.springframework.web.servlet.config.annotation.EnableWebMvc;
 public class DBConfiguration {
 
 
+    private static final String DB_PASS = "zaq1@WSX";
+    private static final String DB_USERNAME = "postgres";
+    private static final String DB_PORT = "5432";
+    private static final String DB_NAME = "DB_TICKET_SCANNER";
+    private static final String DB_SCHEMA = "public";
+
     @Bean
     public LocalSessionFactoryBean sessionFactory() {
         LocalSessionFactoryBean sessionFactory = new LocalSessionFactoryBean();
@@ -38,9 +44,9 @@ public class DBConfiguration {
     public DataSource dataSource() {
         DriverManagerDataSource dataSource = new DriverManagerDataSource();
         dataSource.setDriverClassName("org.postgresql.Driver");
-        dataSource.setUrl("jdbc:postgresql://localhost:5432/DB_TICKET_SCANNER?currentSchema=public");
-        dataSource.setUsername("postgres");
-        dataSource.setPassword("zaq1@WSX");
+        dataSource.setUrl("jdbc:postgresql://localhost:" + DB_PORT + "/" + DB_NAME + "?currentSchema=" + DB_SCHEMA);
+        dataSource.setUsername(DB_USERNAME);
+        dataSource.setPassword(DB_PASS);
         return dataSource;
     }
 

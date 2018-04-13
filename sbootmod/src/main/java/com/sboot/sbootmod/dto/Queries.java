@@ -1,5 +1,6 @@
-package com.sboot.sbootmod;
+package com.sboot.sbootmod.dto;
 
+import com.sboot.sbootmod.dto.service.DBQuery;
 import org.hibernate.SessionFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
@@ -18,7 +19,7 @@ public class Queries implements DBQuery {
 
     @Override
     public String getName(String name) {
-        return sf.getCurrentSession().createQuery("SELECT name FROM ClientData cd WHERE cd.name=:name").setParameter("name", name).getSingleResult().toString();
+        return sf.getCurrentSession().createQuery("SELECT name FROM ZZZ cd WHERE cd.name=:name").setParameter("name", name).getSingleResult().toString();
     }
 
     @Override
