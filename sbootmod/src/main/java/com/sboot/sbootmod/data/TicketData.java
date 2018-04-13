@@ -32,44 +32,44 @@ public class TicketData {
     }
 
     @Id
-    @Column(name="TIC_ID")
+    @Column(name = "TIC_ID")
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
 
-    @Column(name="TIC_NAME")
+    @Column(name = "TIC_NAME")
     private String name;
 
-    @Column(name="TIC_SURNAME")
+    @Column(name = "TIC_SURNAME")
     private String surname;
 
-    @Column(name="TIC_EMAIL")
+    @Column(name = "TIC_EMAIL")
     private String email;
 
-    @Column(name="TIC_EVENT_ID")
+    @Column(name = "TIC_EVENT_ID")
     private int eventId;
 
-    @Column(name="TIC_CITY")
+    @Column(name = "TIC_CITY")
     private String city;
 
-    @Column(name="TIC_STREET")
+    @Column(name = "TIC_STREET")
     private String street;
 
-    @Column(name="TIC_FLAT_NR")
+    @Column(name = "TIC_FLAT_NR")
     private String flatNr;
 
-    @Column(name="TIC_SEX")
+    @Column(name = "TIC_SEX")
     private char sex;
 
-    @Column(name="TIC_BIRTH_DATE")
+    @Column(name = "TIC_BIRTH_DATE")
     private Date birthDate;
 
-    @Column(name="TIC_PHONE")
+    @Column(name = "TIC_PHONE")
     private int phone;
 
-    @Column(name="TIC_SEAT_NR")
+    @Column(name = "TIC_SEAT_NR")
     private String seatNumber;
 
-    @Column(name="TIC_CODE")
+    @Column(name = "TIC_CODE")
     private String code;
 
     public int getId() {

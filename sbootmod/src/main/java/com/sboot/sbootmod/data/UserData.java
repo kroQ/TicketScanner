@@ -1,7 +1,6 @@
 package com.sboot.sbootmod.data;
 
 import javax.persistence.*;
-import java.io.Serializable;
 import java.util.Date;
 
 /**
@@ -10,28 +9,32 @@ import java.util.Date;
 
 @Entity
 @Table(name = "USERS")
-public class UserData implements Serializable {
-
-    private static final long serialVersionUID = 1L;
+public class UserData {
 
     @Id
-    @Column(name="USR_ID")
+    @Column(name = "USR_ID")
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
-    @Column(name="USR_NAME")
+
+    @Column(name = "USR_NAME")
     private String name;
-    @Column(name="USR_SURNAME")
+
+    @Column(name = "USR_SURNAME")
     private String surname;
-    @Column(name="USR_PASSWORD")
+
+    @Column(name = "USR_PASSWORD")
     private String password;
-    @Column(name="USR_EMAIL")
+
+    @Column(name = "USR_EMAIL")
     private String email;
-    @Column(name="USR_LOGIN")
+
+    @Column(name = "USR_LOGIN")
     private String login;
-    @Column(name="USR_DEVICE_ID")
+
+    @Column(name = "USR_DEVICE_ID")
     private Date birthDate;
 
-    public UserData(){
+    public UserData() {
     }
 
     public UserData(String name, String surname, String password, String email, String login, Date birthDate) {

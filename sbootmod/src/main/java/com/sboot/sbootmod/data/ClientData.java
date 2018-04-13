@@ -2,7 +2,6 @@ package com.sboot.sbootmod.data;
 
 
 import javax.persistence.*;
-import java.io.Serializable;
 import java.util.Date;
 
 /**
@@ -11,7 +10,7 @@ import java.util.Date;
 
 @Entity
 @Table(name = "client")
-public class ClientData implements Serializable {
+public class ClientData {
 
     @Id
     @Column(name="id")
