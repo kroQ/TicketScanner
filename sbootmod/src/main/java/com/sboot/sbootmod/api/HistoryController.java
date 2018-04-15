@@ -64,7 +64,7 @@ public class HistoryController {
     }
 
     @RequestMapping("/history/generate")
-    public String newUser() {
+    public String newHistory() {
         // TODO RequestBody and ResponseBody
         Calendar today = Calendar.getInstance();
         today.set(Calendar.HOUR_OF_DAY, 0);
