@@ -12,6 +12,6 @@ public interface DeviceService {
 
     DeviceData getDeviceById(int id);
 
-    void deleteDeviceById(int id);
+    boolean deleteDeviceById(int id);
 
 }

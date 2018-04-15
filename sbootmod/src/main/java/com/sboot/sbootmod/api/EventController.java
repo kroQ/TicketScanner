@@ -29,7 +29,7 @@ public class EventController {
             EventData event = eventService.getEventById(id);
             return event.toString();
         } catch (NoResultException e) {
-            return "No user find";
+            return "No event find";
         }
     }
 
@@ -52,7 +52,7 @@ public class EventController {
             EventData event = eventService.getEventByCode(code);
             return event.toString();
         } catch (NoResultException e) {
-            return "No user find";
+            return "No event find";
         }
     }
 
@@ -73,6 +73,6 @@ public class EventController {
     @RequestMapping("/event/delete/{id}")
     public String deleteEvent(@PathVariable("id") int id) {
         boolean isDeleted = eventService.deleteEventById(id);
-        return isDeleted ? "Deleted: " + id : "User not exist";
+        return isDeleted ? "Deleted: " + id : "Event not exist";
     }
 }

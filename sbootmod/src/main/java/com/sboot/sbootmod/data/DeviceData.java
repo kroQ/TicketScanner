@@ -44,4 +44,13 @@ public class DeviceData {
     public void setName(String name) {
         this.name = name;
     }
+
+    @Override
+    public String toString() {
+        return "DeviceData{" +
+                "id=" + id +
+                ", deviceType='" + deviceType + '\'' +
+                ", name='" + name + '\'' +
+                '}';
+    }
 }

@@ -56,7 +56,7 @@ public class TicketController {
     @RequestMapping("/ticket/delete/{id}")
     public String deleteTicket(@PathVariable("id") int id) {
         boolean isDeleted = ticketService.deleteTicketById(id);
-        return isDeleted ? "Deleted: " + id : "User not exist";
+        return isDeleted ? "Deleted: " + id : "Ticket not exist";
     }
 
 }
