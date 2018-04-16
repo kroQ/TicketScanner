@@ -1,6 +1,6 @@
-package com.sboot.sbootmod.dto.service;
+package com.krok.springboot.dto.service;
 
-import com.sboot.sbootmod.data.HistoryData;
+import com.krok.springboot.data.HistoryData;
 
 import java.util.List;
 

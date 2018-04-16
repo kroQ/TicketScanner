@@ -1,6 +1,6 @@
-package com.sboot.sbootmod.dto.service;
+package com.krok.springboot.dto.service;
 
-import com.sboot.sbootmod.data.DeviceData;
+import com.krok.springboot.data.DeviceData;
 
 /**
  * Created by Mateusz Krok on 2018-04-13

@@ -1,4 +1,4 @@
-package com.sboot.sbootmod.database;
+package com.krok.springboot.database;
 
 
 
@@ -20,7 +20,7 @@ import org.springframework.web.servlet.config.annotation.EnableWebMvc;
 @Configuration
 @EnableTransactionManagement
 @ComponentScan(
-        basePackages = {"com.sboot.*"})
+        basePackages = {"com.krok.*"})
 @EnableWebMvc
 public class DBConfiguration {
 
@@ -35,7 +35,7 @@ public class DBConfiguration {
     public LocalSessionFactoryBean sessionFactory() {
         LocalSessionFactoryBean sessionFactory = new LocalSessionFactoryBean();
         sessionFactory.setDataSource(dataSource());
-        sessionFactory.setPackagesToScan("com.sboot.sbootmod.data");
+        sessionFactory.setPackagesToScan("com.krok.springboot.data");
         sessionFactory.setHibernateProperties(hibernateProperties());
         return sessionFactory;
     }

@@ -1,7 +1,7 @@
-package com.sboot.sbootmod.dto;
+package com.krok.springboot.dto;
 
-import com.sboot.sbootmod.data.EventData;
-import com.sboot.sbootmod.dto.service.EventService;
+import com.krok.springboot.data.EventData;
+import com.krok.springboot.dto.service.EventService;
 import org.hibernate.SessionFactory;
 import org.hibernate.query.Query;
 import org.springframework.beans.factory.annotation.Autowired;

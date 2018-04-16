@@ -1,6 +1,6 @@
-package com.sboot.sbootmod.dto.service;
+package com.krok.springboot.dto.service;
 
-import com.sboot.sbootmod.data.TicketData;
+import com.krok.springboot.data.TicketData;
 
 /**
  * Created by Mateusz Krok on 2018-04-13

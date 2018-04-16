@@ -1,7 +1,7 @@
-package com.sboot.sbootmod.api;
+package com.krok.springboot.api;
 
-import com.sboot.sbootmod.data.EventData;
-import com.sboot.sbootmod.dto.service.EventService;
+import com.krok.springboot.data.EventData;
+import com.krok.springboot.dto.service.EventService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;

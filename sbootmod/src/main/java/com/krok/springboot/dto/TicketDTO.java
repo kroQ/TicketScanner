@@ -1,7 +1,7 @@
-package com.sboot.sbootmod.dto;
+package com.krok.springboot.dto;
 
-import com.sboot.sbootmod.data.TicketData;
-import com.sboot.sbootmod.dto.service.TicketService;
+import com.krok.springboot.data.TicketData;
+import com.krok.springboot.dto.service.TicketService;
 import org.hibernate.SessionFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;

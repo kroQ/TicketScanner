@@ -1,6 +1,6 @@
-package com.sboot.sbootmod.dto.service;
+package com.krok.springboot.dto.service;
 
-import com.sboot.sbootmod.data.EventData;
+import com.krok.springboot.data.EventData;
 
 import java.util.List;
 

@@ -4,12 +4,12 @@
 	<modelVersion>4.0.0</modelVersion>
 
 	<groupId>com.sboot</groupId>
-	<artifactId>sbootmod</artifactId>
+	<artifactId>sboot</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
 	<packaging>jar</packaging>
 
-	<name>sbootmod</name>
-	<description>jakistamopis z poczatku</description>
+	<name>sboot</name>
+	<description>Spring Boot application</description>
 
 	<parent>
 		<groupId>org.springframework.boot</groupId>

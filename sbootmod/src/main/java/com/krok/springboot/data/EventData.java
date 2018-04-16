@@ -1,4 +1,4 @@
-package com.sboot.sbootmod.data;
+package com.krok.springboot.data;
 
 import javax.persistence.*;
 import java.util.Date;

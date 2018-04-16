@@ -1,7 +1,7 @@
-package com.sboot.sbootmod.dto;
+package com.krok.springboot.dto;
 
-import com.sboot.sbootmod.data.HistoryData;
-import com.sboot.sbootmod.dto.service.HistoryService;
+import com.krok.springboot.data.HistoryData;
+import com.krok.springboot.dto.service.HistoryService;
 import org.hibernate.SessionFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
