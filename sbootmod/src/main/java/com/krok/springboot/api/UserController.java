@@ -1,5 +1,7 @@
 package com.krok.springboot.api;
 
+import com.krok.json.UserJson;
+import com.krok.json.UserMapperService;
 import com.krok.springboot.data.UserData;
 import com.krok.springboot.dto.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -19,13 +21,17 @@ public class UserController {
     @Autowired
     UserService userService;
 
+    @Autowired
+    UserMapperService userMapperService;
+
     // ******************** USER API ******************* //
 
     @RequestMapping("/user/{id}")
     public String findUser(@PathVariable("id") int id) {
         try {
             UserData user = userService.getUserById(id);
-            return user.toString();
+            UserJson json = userMapperService.toUserJson(user);
+            return user.toString() + "\n\n\n" + json;
         } catch (NoResultException e) {
             return "No user find";
         }

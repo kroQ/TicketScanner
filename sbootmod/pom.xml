@@ -43,33 +43,15 @@
 			<artifactId>postgresql</artifactId>
 			<version>9.3-1103-jdbc3</version>
 		</dependency>
+		<dependency>
+			<groupId>com.krok.smod</groupId>
+			<artifactId>JsonBridge</artifactId>
+			<version>1.0-SNAPSHOT</version>
+			<scope>compile</scope>
+		</dependency>
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-    </dependencies>
+	</dependencies>
 
 	<build>
 		<plugins>
