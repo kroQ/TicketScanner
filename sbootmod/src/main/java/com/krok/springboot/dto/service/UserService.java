@@ -1,5 +1,6 @@
 package com.krok.springboot.dto.service;
 
+import com.krok.error.AppException;
 import com.krok.springboot.data.UserData;
 
 /**
@@ -8,7 +9,7 @@ import com.krok.springboot.data.UserData;
 
 public interface UserService {
 
-    void createOrUpdate(UserData userData);
+    void createOrUpdate(UserData userData) throws AppException;
 
     UserData getUserById(int id);
 
