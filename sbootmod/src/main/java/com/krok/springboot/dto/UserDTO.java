@@ -3,6 +3,7 @@ package com.krok.springboot.dto;
 import com.krok.error.AppException;
 import com.krok.error.DAOError;
 import com.krok.springboot.data.UserData;
+import com.krok.data.UserData;
 import com.krok.springboot.dto.service.UserService;
 import org.hibernate.SessionFactory;
 import org.hibernate.query.Query;

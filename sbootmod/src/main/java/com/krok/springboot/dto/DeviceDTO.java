@@ -1,6 +1,6 @@
 package com.krok.springboot.dto;
 
-import com.krok.springboot.data.DeviceData;
+import com.krok.data.DeviceData;
 import com.krok.springboot.dto.service.DeviceService;
 import org.hibernate.SessionFactory;
 import org.springframework.beans.factory.annotation.Autowired;

@@ -1,6 +1,6 @@
 package com.krok.springboot.dto.service;
 
-import com.krok.springboot.data.EventData;
+import com.krok.data.EventData;
 
 import java.util.List;
 

@@ -1,6 +1,6 @@
 package com.krok.springboot.dto.service;
 
-import com.krok.springboot.data.HistoryData;
+import com.krok.data.HistoryData;
 
 import java.util.List;
 

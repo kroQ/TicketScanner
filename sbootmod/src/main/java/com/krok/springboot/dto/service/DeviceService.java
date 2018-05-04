@@ -1,6 +1,6 @@
 package com.krok.springboot.dto.service;
 
-import com.krok.springboot.data.DeviceData;
+import com.krok.data.DeviceData;
 
 /**
  * Created by Mateusz Krok on 2018-04-13

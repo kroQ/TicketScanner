@@ -1,5 +1,8 @@
 package com.krok.springboot.api;
 
+import com.krok.json.UserJson;
+import com.krok.json.UserMapperService;
+import com.krok.data.UserData;
 import com.krok.error.AppError;
 import com.krok.error.AppException;
 import com.krok.error.DAOError;
@@ -27,6 +30,9 @@ public class UserController {
     @Autowired
     UserService userService;
 
+    @Autowired
+    UserMapperService userMapperService;
+
     private static Logger logger = Logger.getLogger(
             Thread.currentThread().getStackTrace()[0].getClassName());
 
@@ -36,7 +42,8 @@ public class UserController {
     public String findUser(@PathVariable("id") int id) {
         try {
             UserData user = userService.getUserById(id);
-            return user.toString();
+            UserJson json = userMapperService.toUserJson(user);
+            return user.toString() + "\n\n\n" + json;
         } catch (NoResultException e) {
             return "No user find";
         }
