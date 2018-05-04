@@ -1,6 +1,6 @@
 package com.krok.json;
 
-import com.krok.springboot.data.UserData;
+import com.krok.data.UserData;
 
 /**
  * Created by Mateusz Krok on 2018-04-16

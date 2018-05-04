@@ -1,6 +1,6 @@
 package com.krok.springboot.dto;
 
-import com.krok.springboot.data.UserData;
+import com.krok.data.UserData;
 import com.krok.springboot.dto.service.UserService;
 import org.hibernate.SessionFactory;
 import org.springframework.beans.factory.annotation.Autowired;

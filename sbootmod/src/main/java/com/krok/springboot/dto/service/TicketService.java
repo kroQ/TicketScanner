@@ -1,6 +1,6 @@
 package com.krok.springboot.dto.service;
 
-import com.krok.springboot.data.TicketData;
+import com.krok.data.TicketData;
 
 /**
  * Created by Mateusz Krok on 2018-04-13

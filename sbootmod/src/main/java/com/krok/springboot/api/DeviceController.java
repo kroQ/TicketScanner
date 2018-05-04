@@ -1,6 +1,6 @@
 package com.krok.springboot.api;
 
-import com.krok.springboot.data.DeviceData;
+import com.krok.data.DeviceData;
 import com.krok.springboot.dto.service.DeviceService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.PathVariable;

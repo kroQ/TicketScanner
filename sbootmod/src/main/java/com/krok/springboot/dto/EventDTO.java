@@ -1,6 +1,6 @@
 package com.krok.springboot.dto;
 
-import com.krok.springboot.data.EventData;
+import com.krok.data.EventData;
 import com.krok.springboot.dto.service.EventService;
 import org.hibernate.SessionFactory;
 import org.hibernate.query.Query;

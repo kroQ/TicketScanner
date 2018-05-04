@@ -1,4 +1,4 @@
-package com.krok.springboot.data;
+package com.krok.data;
 
 import javax.persistence.*;
 

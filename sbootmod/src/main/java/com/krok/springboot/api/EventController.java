@@ -1,6 +1,6 @@
 package com.krok.springboot.api;
 
-import com.krok.springboot.data.EventData;
+import com.krok.data.EventData;
 import com.krok.springboot.dto.service.EventService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.PathVariable;

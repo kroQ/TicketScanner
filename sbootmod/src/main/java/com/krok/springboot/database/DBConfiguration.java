@@ -35,7 +35,7 @@ public class DBConfiguration {
     public LocalSessionFactoryBean sessionFactory() {
         LocalSessionFactoryBean sessionFactory = new LocalSessionFactoryBean();
         sessionFactory.setDataSource(dataSource());
-        sessionFactory.setPackagesToScan("com.krok.springboot.data");
+        sessionFactory.setPackagesToScan("com.krok.data");
         sessionFactory.setHibernateProperties(hibernateProperties());
         return sessionFactory;
     }

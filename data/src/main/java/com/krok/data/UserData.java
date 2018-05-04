@@ -1,4 +1,4 @@
-package com.krok.springboot.data;
+package com.krok.data;
 
 import javax.persistence.*;
 
@@ -103,7 +103,7 @@ public class UserData {
 
     @Override
     public String toString() {
-        return "UserData{" +
+        return "com.krok.data.UserData{" +
                 "id=" + id +
                 ", name='" + name + '\'' +
                 ", surname='" + surname + '\'' +

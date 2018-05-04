@@ -2,7 +2,7 @@ package com.krok.springboot.api;
 
 import com.krok.json.UserJson;
 import com.krok.json.UserMapperService;
-import com.krok.springboot.data.UserData;
+import com.krok.data.UserData;
 import com.krok.springboot.dto.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.PathVariable;
