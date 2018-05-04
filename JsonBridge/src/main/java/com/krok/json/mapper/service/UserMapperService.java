@@ -1,6 +1,7 @@
-package com.krok.json;
+package com.krok.json.mapper.service;
 
 import com.krok.data.UserData;
+import com.krok.json.UserJson;
 
 /**
  * Created by Mateusz Krok on 2018-04-16

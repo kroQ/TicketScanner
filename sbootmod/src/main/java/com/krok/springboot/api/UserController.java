@@ -1,7 +1,7 @@
 package com.krok.springboot.api;
 
 import com.krok.json.UserJson;
-import com.krok.json.UserMapperService;
+import com.krok.json.mapper.service.UserMapperService;
 import com.krok.data.UserData;
 import com.krok.error.AppException;
 import com.krok.springboot.dto.service.UserService;
@@ -71,7 +71,7 @@ public class UserController {
             userService.createOrUpdate(user);
         } catch (AppException e) {
             logger.info(e.getCodeMessage());
-            return "nope: " + e.getMessage() + "\n\n";
+            return "nope: " + e.getMessage() + "\n--\n";
         }
         return user.toString();
     }

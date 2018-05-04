@@ -1,6 +1,8 @@
-package com.krok.json;
+package com.krok.json.mapper;
 
 import com.krok.data.UserData;
+import com.krok.json.UserJson;
+import com.krok.json.mapper.service.UserMapperService;
 import org.springframework.stereotype.Component;
 
 /**
