@@ -1,21 +1,24 @@
 package com.krok.springboot.api;
 
-import com.krok.json.UserJson;
-import com.krok.json.mapper.service.UserMapperService;
 import com.krok.data.UserData;
 import com.krok.error.AppException;
+import com.krok.error.DAOError;
+import com.krok.json.UserJson;
+import com.krok.json.mapper.UserMapper;
+import com.krok.json.mapper.service.UserMapperService;
 import com.krok.springboot.dto.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import javax.persistence.NoResultException;
 import java.util.logging.Logger;
 
-import javax.persistence.NoResultException;
-
-import static org.springframework.web.bind.annotation.RequestMethod.DELETE;
-import static org.springframework.web.bind.annotation.RequestMethod.GET;
+import static org.springframework.web.bind.annotation.RequestMethod.*;
 
 /**
  * Created by Mateusz Krok on 2018-04-13
@@ -62,32 +65,64 @@ public class UserController {
         return isDeleted ? "Deleted: " + id : "User not exist";
     }
 
-    @RequestMapping("/user/generate/{login}")
-    public String newUser(@PathVariable("login") String login) throws AppException {
-        // TODO RequestBody and ResponseBody
-        UserData user;
-        user = new UserData("N", "S", "P", "E", login, 1);
+//    @RequestMapping("/user/generate/{login}")
+//    public String newUser(@PathVariable("login") String login) throws AppException {
+//        // TODO RequestBody and ResponseBody
+//        UserData user;
+//        user = new UserData("N", "S", "P", "E", login, 1);
+//        try {
+//            userService.createOrUpdate(user);
+//        } catch (AppException e) {
+//            logger.info(e.getCodeMessage());
+//            return "nope: " + e.getMessage() + "\n--\n";
+//        }
+//        return user.toString();
+//    }
+
+    @RequestMapping(value = "/user/register", method = POST)
+    public ResponseEntity<UserJson> newUser(@RequestBody UserJson userJson) {
+        System.out.println("Przylecialo: " + userJson.getLogin());
+        UserMapper userMapper = new UserMapper();
         try {
-            userService.createOrUpdate(user);
+            UserData userData = userMapper.toUserData(userJson);
+            userService.createOrUpdate(userData);
         } catch (AppException e) {
             logger.info(e.getCodeMessage());
-            return "nope: " + e.getMessage() + "\n--\n";
+            return new ResponseEntity<>(userJson, HttpStatus.IM_USED);
         }
-        return user.toString();
+        return new ResponseEntity<>(userJson, HttpStatus.OK);
     }
 
-    @RequestMapping("/user/generate/2/{login}")
-    public UserData newUser2(@PathVariable("login") String login) throws AppException {
-        // TODO RequestBody and ResponseBody
-        UserData user;
-        user = new UserData("N", "S", "P", "E", login, 1);
+//    @RequestMapping(value = "/user/register", method = POST)
+//    public UserJson newUser(@RequestBody UserJson userJson) throws AppException {
+//        System.out.println("Przylecialo: " + userJson.getLogin());
+//        UserMapper userMapper = new UserMapper();
+//        try {
+//            UserData userData = userMapper.toUserData(userJson);
+//            userService.createOrUpdate(userData);
+//        } catch (AppException e) {
+//            logger.info(e.getCodeMessage());
+//            return null;
+//        }
+//        return userJson;
+//    }
+
+    @RequestMapping(value = "/user/login", method = POST)
+    public ResponseEntity<UserJson> login(@RequestBody UserJson user) {
+        System.out.println("Przylecialo: " + user.getLogin());
+        UserMapper userMapper = new UserMapper();
         try {
-            userService.createOrUpdate(user);
+            UserData userData;
+            userData = userService.getUserByLogin(user.getLogin());
+            return new ResponseEntity<>(userMapper.toUserJson(userData), HttpStatus.OK);
         } catch (AppException e) {
             logger.info(e.getCodeMessage());
-            return null;
+            if (e.getErrorCode().equals(DAOError.LOGIN_NOT_FOUND)) {
+                return new ResponseEntity<>(new UserJson(), HttpStatus.NO_CONTENT);
+            }
+            logger.info(e.getCodeMessage());
+            return new ResponseEntity<>((UserJson) null, HttpStatus.I_AM_A_TEAPOT);
         }
-        return user;
     }
 
     @RequestMapping("/user/delete/{id}")

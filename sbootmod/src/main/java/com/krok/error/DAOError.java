@@ -6,6 +6,7 @@ package com.krok.error;
 public enum DAOError implements AppError {
 
     INVALID_EMAIL_ADDRESS("Invalid email address: {0}"),
+    LOGIN_NOT_FOUND("Login: {0} not found"),
     LOGIN_IS_NOT_UNIQUE("Login {0} is already in use.");
 
     String message;
