@@ -1,6 +1,7 @@
 package com.krok.springboot.dto.service;
 
 import com.krok.data.EventData;
+import com.krok.error.AppException;
 
 import java.util.List;
 
@@ -14,7 +15,7 @@ public interface EventService {
 
     EventData getEventById(int id);
 
-    EventData getEventByCode(String code);
+    EventData getEventByCode(String code) throws AppException;
 
     List<EventData> getAllEvents();
 

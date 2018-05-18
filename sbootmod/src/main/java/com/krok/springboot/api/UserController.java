@@ -81,7 +81,7 @@ public class UserController {
 
     @RequestMapping(value = "/user/register", method = POST)
     public ResponseEntity<UserJson> newUser(@RequestBody UserJson userJson) {
-        System.out.println("Przylecialo: " + userJson.getLogin());
+        logger.info("Przylecialo: " + userJson.getLogin());
         UserMapper userMapper = new UserMapper();
         try {
             UserData userData = userMapper.toUserData(userJson);
@@ -109,11 +109,10 @@ public class UserController {
 
     @RequestMapping(value = "/user/login", method = POST)
     public ResponseEntity<UserJson> login(@RequestBody UserJson user) {
-        System.out.println("Przylecialo: " + user.getLogin());
+        logger.info("/user/login: " + user.getLogin());
         UserMapper userMapper = new UserMapper();
         try {
-            UserData userData;
-            userData = userService.getUserByLogin(user.getLogin());
+            UserData userData = userService.getUserByLogin(user.getLogin());
             return new ResponseEntity<>(userMapper.toUserJson(userData), HttpStatus.OK);
         } catch (AppException e) {
             logger.info(e.getCodeMessage());
@@ -121,7 +120,7 @@ public class UserController {
                 return new ResponseEntity<>(new UserJson(), HttpStatus.NO_CONTENT);
             }
             logger.info(e.getCodeMessage());
-            return new ResponseEntity<>((UserJson) null, HttpStatus.I_AM_A_TEAPOT);
+            return new ResponseEntity<>(new UserJson(), HttpStatus.I_AM_A_TEAPOT);
         }
     }
 

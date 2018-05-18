@@ -1,6 +1,8 @@
 package com.krok.springboot.dto;
 
 import com.krok.data.EventData;
+import com.krok.error.AppException;
+import com.krok.error.DAOError;
 import com.krok.springboot.dto.service.EventService;
 import org.hibernate.SessionFactory;
 import org.hibernate.query.Query;
@@ -8,6 +10,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import org.springframework.transaction.annotation.Transactional;
 
+import javax.persistence.NoResultException;
 import java.util.List;
 
 /**
@@ -42,9 +45,14 @@ public class EventDTO implements EventService {
     }
 
     @Override
-    public EventData getEventByCode(String code) {
-        return (EventData) sessionFactory.getCurrentSession().createQuery("FROM EventData event WHERE event.code=:code")
-                .setParameter("code", code).getSingleResult();
+    public EventData getEventByCode(String code) throws AppException {
+        try {
+            EventData event = (EventData) sessionFactory.getCurrentSession().createQuery("FROM EventData event WHERE event.code=:code")
+                    .setParameter("code", code).getSingleResult();
+            return event;
+        } catch (NoResultException e) {
+            throw new AppException(DAOError.EVENT_NOT_FOUND, code);
+        }
     }
 
     @Override
