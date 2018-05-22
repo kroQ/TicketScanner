@@ -67,11 +67,10 @@ public class UserController {
 
 //    @RequestMapping("/user/generate/{login}")
 //    public String newUser(@PathVariable("login") String login) throws AppException {
-//        // TODO RequestBody and ResponseBody
 //        UserData user;
 //        user = new UserData("N", "S", "P", "E", login, 1);
 //        try {
-//            userService.createOrUpdate(user);
+//            userService.create(user);
 //        } catch (AppException e) {
 //            logger.info(e.getCodeMessage());
 //            return "nope: " + e.getMessage() + "\n--\n";
@@ -99,7 +98,7 @@ public class UserController {
 //        UserMapper userMapper = new UserMapper();
 //        try {
 //            UserData userData = userMapper.toUserData(userJson);
-//            userService.createOrUpdate(userData);
+//            userService.create(userData);
 //        } catch (AppException e) {
 //            logger.info(e.getCodeMessage());
 //            return null;

@@ -25,8 +25,19 @@ public class EventDTO implements EventService {
     SessionFactory sessionFactory;
 
     @Override
-    public void createOrUpdate(EventData eventData) {
-        sessionFactory.getCurrentSession().saveOrUpdate(eventData);
+    public void create(EventData eventData) throws AppException {
+        if (isEventUnique(eventData)) {
+            sessionFactory.getCurrentSession().save(eventData);
+        } else {
+            throw new AppException(DAOError.EVENT_IS_NOT_UNIQUE, eventData.getName());
+        }
+    }
+
+    private boolean isEventUnique(EventData eventData) {
+        Query query;
+        query = sessionFactory.getCurrentSession().createQuery("FROM EventData event WHERE event.name=:name")
+                .setParameter("name", eventData.getName());
+        return query.getResultList().size() == 0;
     }
 
     @Override
@@ -45,13 +56,13 @@ public class EventDTO implements EventService {
     }
 
     @Override
-    public EventData getEventByCode(String code) throws AppException {
+    public EventData getEventByName(String name) throws AppException {
         try {
-            EventData event = (EventData) sessionFactory.getCurrentSession().createQuery("FROM EventData event WHERE event.code=:code")
-                    .setParameter("code", code).getSingleResult();
+            EventData event = (EventData) sessionFactory.getCurrentSession().createQuery("FROM EventData event WHERE event.name=:name")
+                    .setParameter("name", name).getSingleResult();
             return event;
         } catch (NoResultException e) {
-            throw new AppException(DAOError.EVENT_NOT_FOUND, code);
+            throw new AppException(DAOError.EVENT_NOT_FOUND, name);
         }
     }
 

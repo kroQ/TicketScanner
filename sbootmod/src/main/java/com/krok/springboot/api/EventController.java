@@ -9,13 +9,9 @@ import com.krok.springboot.dto.service.EventService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import javax.persistence.NoResultException;
-import java.util.Calendar;
 import java.util.List;
 import java.util.logging.Logger;
 
@@ -57,12 +53,12 @@ public class EventController {
         }
     }
 
-    @RequestMapping(value = "/event/{code}", method = RequestMethod.GET)
-    public ResponseEntity<EventJson> findEventByCode(@PathVariable String code) {
-        logger.info("Event/code: " + code);
+    @RequestMapping(value = "/event/{name}", method = RequestMethod.GET)
+    public ResponseEntity<EventJson> findEventByName(@PathVariable String name) {
+        logger.info("Event/code: " + name);
         EventMapper eventMapper = new EventMapper();
         try {
-            EventData event = eventService.getEventByCode(code);
+            EventData event = eventService.getEventByName(name);
             return new ResponseEntity<>(eventMapper.toEventJson(event), HttpStatus.OK);
         } catch (AppException e) {
             logger.info(e.getCodeMessage());
@@ -74,18 +70,31 @@ public class EventController {
         }
     }
 
-    @RequestMapping("/event/generate")
-    public String newEvent() {
-        // TODO RequestBody and ResponseBody
-        Calendar today = Calendar.getInstance();
-        Calendar tomorrow = Calendar.getInstance();
-        today.set(Calendar.MILLISECOND, 0);
-        tomorrow.add(Calendar.DATE, 1);
-        tomorrow.set(Calendar.MILLISECOND, 0);
-        EventData event;
-        event = new EventData("C", today.getTime(), tomorrow.getTime(), 1, 20);
-        eventService.createOrUpdate(event);
-        return event.toString();
+    @RequestMapping(value = "/event/", method = RequestMethod.POST)
+    public ResponseEntity<EventJson> newEvent(@RequestBody EventJson eventJson) {
+        logger.info("Event/: " + eventJson.getName());
+        EventMapper eventMapper = new EventMapper();
+
+        try {
+            EventData eventData = eventMapper.toEventData(eventJson);
+            eventService.create(eventData);
+            eventJson = eventMapper.toEventJson(eventData);
+        } catch (AppException e) {
+            logger.info(e.getCodeMessage());
+            return new ResponseEntity<>(eventJson, HttpStatus.IM_USED);
+        }
+        logger.info("Event/: and ID is: " + eventJson.getId());
+        return new ResponseEntity<>(eventJson, HttpStatus.OK);
+//        Calendar today = Calendar.getInstance();
+//        Calendar tomorrow = Calendar.getInstance();
+//        today.set(Calendar.MILLISECOND, 0);
+//        tomorrow.add(Calendar.DATE, 1);
+//        tomorrow.set(Calendar.MILLISECOND, 0);
+//        EventData event;
+//        event = new EventData("C", today.getTime(), tomorrow.getTime(), 1, 20);
+
+//        eventService.create(event);
+//        return event.toString();
     }
 
     @RequestMapping("/event/delete/{id}")

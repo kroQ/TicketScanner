@@ -16,7 +16,9 @@ public class EventData {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
 
-    //TODO unique
+    @Column(name = "EVE_NAME")
+    private String name;
+
     @Column(name = "EVE_CODE")
     private String code;
 
@@ -32,15 +34,12 @@ public class EventData {
     @Column(name = "EVE_TICKET_POOL_ID")
     private int ticketsPool;
 
-    public EventData(String code, Date startEventDate, Date endEventDate, int ownerId, int ticketsPool) {
-        this.code = code;
-        this.startEventDate = startEventDate;
-        this.endEventDate = endEventDate;
-        this.ownerId = ownerId;
-        this.ticketsPool = ticketsPool;
+    public String getName() {
+        return name;
     }
 
-    public EventData() {
+    public void setName(String name) {
+        this.name = name;
     }
 
     public int getId() {

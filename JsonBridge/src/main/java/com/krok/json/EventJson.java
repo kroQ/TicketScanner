@@ -10,6 +10,7 @@ public class EventJson {
 
     private int id;
     private String code;
+    private String name;
     private Date startEventDate;
     private Date endEventDate;
     private int ownerId;
@@ -21,6 +22,14 @@ public class EventJson {
 
     public void setId(int id) {
         this.id = id;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
     }
 
     public String getCode() {

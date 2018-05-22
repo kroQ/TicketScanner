@@ -11,11 +11,11 @@ import java.util.List;
 
 public interface EventService {
 
-    void createOrUpdate(EventData eventData);
+    void create(EventData eventData) throws AppException;
 
     EventData getEventById(int id);
 
-    EventData getEventByCode(String code) throws AppException;
+    EventData getEventByName(String name) throws AppException;
 
     List<EventData> getAllEvents();
 

@@ -13,6 +13,7 @@ public class EventMapper implements EventMapperService {
     public EventJson toEventJson(EventData event) {
         EventJson json = new EventJson();
         json.setId(event.getId());
+        json.setName(event.getName());
         json.setCode(event.getCode());
         json.setEndEventDate(event.getEndEventDate());
         json.setOwnerId(event.getOwnerId());
@@ -24,6 +25,7 @@ public class EventMapper implements EventMapperService {
     public EventData toEventData(EventJson json) {
         EventData event = new EventData();
         event.setId(json.getId());
+        event.setName(json.getName());
         event.setCode(json.getCode());
         event.setEndEventDate(json.getEndEventDate());
         event.setOwnerId(json.getOwnerId());
