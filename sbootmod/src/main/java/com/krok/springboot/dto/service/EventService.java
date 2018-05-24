@@ -17,7 +17,7 @@ public interface EventService {
 
     EventData getEventByName(String name) throws AppException;
 
-    List<EventData> getAllEvents();
+    List<EventData> getAllEventsByUserId(int id) throws AppException;
 
     boolean deleteEventById(int id);
 

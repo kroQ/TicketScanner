@@ -47,10 +47,11 @@ public class EventDTO implements EventService {
     }
 
     @Override
-    public List<EventData> getAllEvents() {
+    public List<EventData> getAllEventsByUserId(int id) {
         List<EventData> eventList;
         Query query;
-        query = sessionFactory.getCurrentSession().createQuery("SELECT e FROM EventData e");
+        query = sessionFactory.getCurrentSession().createQuery("SELECT e FROM EventData e WHERE e.ownerId=:id")
+                .setParameter("id", id);
         eventList = query.getResultList();
         return eventList;
     }

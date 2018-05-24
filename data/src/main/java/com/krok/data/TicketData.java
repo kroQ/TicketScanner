@@ -13,24 +13,6 @@ public class TicketData {
 
     // TODO private inrefrace to sex field
 
-    public TicketData(String name, String surname, String email, int eventId, String city, String street, String flatNr, char sex, Date birthDate, int phone, String seatNumber, String code) {
-        this.name = name;
-        this.surname = surname;
-        this.email = email;
-        this.eventId = eventId;
-        this.city = city;
-        this.street = street;
-        this.flatNr = flatNr;
-        this.sex = sex;
-        this.birthDate = birthDate;
-        this.phone = phone;
-        this.seatNumber = seatNumber;
-        this.code = code;
-    }
-
-    public TicketData() {
-    }
-
     @Id
     @Column(name = "TIC_ID")
     @GeneratedValue(strategy = GenerationType.IDENTITY)

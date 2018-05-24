@@ -21,6 +21,7 @@ public class TicketJson {
     private int phone;
     private String seatNumber;
     private String code;
+    private int userId;
 
     public int getId() {
         return id;
@@ -124,6 +125,14 @@ public class TicketJson {
 
     public void setCode(String code) {
         this.code = code;
+    }
+
+    public int getUserId() {
+        return userId;
+    }
+
+    public void setUserId(int userId) {
+        this.userId = userId;
     }
 
 }

@@ -22,7 +22,19 @@ public class HistoryDTO implements HistoryService {
 
     @Override
     public void createOrUpdate(HistoryData historyData) {
-        sessionFactory.getCurrentSession().saveOrUpdate(historyData);
+        boolean isHere;
+        List response;
+
+        response = sessionFactory.getCurrentSession().createQuery("SELECT h.isInside from HistoryData h " +
+                "where h.ticketId = :ticketId order by h.id desc ").setParameter("ticketId", historyData.getTicketId()).list();
+
+        if (response.size() > 0) {
+            isHere = (boolean) response.get(0);
+        } else {
+            isHere = false;
+        }
+        historyData.setInside(!isHere);
+        sessionFactory.getCurrentSession().save(historyData);
     }
 
     @Override

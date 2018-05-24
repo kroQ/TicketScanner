@@ -1,8 +1,11 @@
 package com.krok.springboot.dto;
 
 import com.krok.data.TicketData;
+import com.krok.error.AppException;
+import com.krok.error.DAOError;
 import com.krok.springboot.dto.service.TicketService;
 import org.hibernate.SessionFactory;
+import org.hibernate.query.Query;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import org.springframework.transaction.annotation.Transactional;
@@ -19,8 +22,19 @@ public class TicketDTO implements TicketService {
     SessionFactory sessionFactory;
 
     @Override
-    public void createOrUpdate(TicketData ticketData) {
-        sessionFactory.getCurrentSession().saveOrUpdate(ticketData);
+    public void sendScannedData(TicketData ticketData) throws AppException {
+        if (checkIfExist(ticketData)) {
+            throw new AppException(DAOError.TICKET_ALREADY_EXIST, ticketData.getCode());
+        }
+        sessionFactory.getCurrentSession().save(ticketData);
+
+
+    }
+
+    private boolean checkIfExist(TicketData ticketData) {
+        Query query = sessionFactory.getCurrentSession().createQuery("select 1 from TicketData t where t.code = :code");
+        query.setParameter("code", ticketData.getCode());
+        return (query.uniqueResult() != null);
     }
 
     @Override
@@ -40,4 +54,8 @@ public class TicketDTO implements TicketService {
         return sessionFactory.getCurrentSession().createQuery("DELETE TicketData WHERE id = :id")
                 .setParameter("id", id).executeUpdate() > 0;
     }
+    //    }
+    //        sessionFactory.getCurrentSession().createNamedQuery("INSERT ");
+    //        Query query;
+//    private void updateHistory(TicketData ticketData){
 }

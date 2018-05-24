@@ -17,7 +17,6 @@ public class TicketMapper implements TicketMapperService {
         json.setCity(ticketData.getCity());
         json.setCode(ticketData.getCode());
         json.setEmail(ticketData.getEmail());
-        json.setCode(ticketData.getCode());
         json.setFlatNr(ticketData.getFlatNr());
         json.setName(ticketData.getName());
         json.setPhone(ticketData.getPhone());
@@ -25,6 +24,7 @@ public class TicketMapper implements TicketMapperService {
         json.setSex(ticketData.getSex());
         json.setStreet(ticketData.getStreet());
         json.setSurname(ticketData.getSurname());
+        json.setEventId(ticketData.getEventId());
         return json;
     }
 
@@ -33,7 +33,6 @@ public class TicketMapper implements TicketMapperService {
         ticketData.setId(json.getId());
         ticketData.setBirthDate(json.getBirthDate());
         ticketData.setCity(json.getCity());
-        ticketData.setCode(json.getCode());
         ticketData.setEmail(json.getEmail());
         ticketData.setCode(json.getCode());
         ticketData.setFlatNr(json.getFlatNr());
@@ -43,6 +42,7 @@ public class TicketMapper implements TicketMapperService {
         ticketData.setSex(json.getSex());
         ticketData.setStreet(json.getStreet());
         ticketData.setSurname(json.getSurname());
+        ticketData.setEventId(json.getEventId());
         return ticketData;
     }
 }

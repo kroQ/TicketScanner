@@ -1,14 +1,22 @@
 package com.krok.springboot.api;
 
+import com.krok.data.HistoryData;
 import com.krok.data.TicketData;
+import com.krok.error.AppException;
+import com.krok.error.DAOError;
+import com.krok.json.TicketJson;
+import com.krok.json.mapper.TicketMapper;
+import com.krok.springboot.dto.service.HistoryService;
 import com.krok.springboot.dto.service.TicketService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.*;
 
 import javax.persistence.NoResultException;
+import java.time.LocalTime;
 import java.util.Calendar;
+import java.util.logging.Logger;
 
 /**
  * Created by Mateusz Krok on 2018-04-13
@@ -19,6 +27,12 @@ public class TicketController {
 
     @Autowired
     TicketService ticketService;
+
+    @Autowired
+    HistoryService historyService;
+
+    private static Logger logger = Logger.getLogger(
+            Thread.currentThread().getStackTrace()[0].getClassName());
 
     // ******************** TICKET API ******************* //
 
@@ -42,15 +56,31 @@ public class TicketController {
         }
     }
 
-    @RequestMapping("/ticket/generate")
-    public String newTicket() {
-        // TODO RequestBody and ResponseBody
-        Calendar today = Calendar.getInstance();
-        today.set(Calendar.HOUR_OF_DAY, 0);
-        TicketData ticket;
-        ticket = new TicketData("N", "S", "E", 1, "S", "S", "F", 'S', today.getTime(), 123123123, "33E", "C");
-        ticketService.createOrUpdate(ticket);
-        return ticket.toString();
+    @RequestMapping(value = "/ticket/{userId}/{eventId}", method = RequestMethod.POST)
+    public ResponseEntity newTicket(@PathVariable("userId") int userId, @PathVariable("eventId") int eventId, @RequestBody TicketJson ticketJson) {
+        logger.info("/ticket/userId/eventId: " + userId + " " + eventId);
+        TicketMapper mapper = new TicketMapper();
+        TicketData ticketData = mapper.toTicketData(ticketJson);
+
+        //TODO dostac ticketID i go przypisac do histori
+
+        HistoryData historyData = new HistoryData();
+        historyData.setEventId(ticketJson.getEventId());
+        historyData.setUserId(ticketJson.getUserId());
+        historyData.setDate(Calendar.getInstance().getTime());
+        historyData.setTime(LocalTime.now());
+
+        historyService.createOrUpdate(historyData);
+
+        try {
+            ticketService.sendScannedData(ticketData);
+        } catch (AppException e) {
+            if (e.getErrorCode() == DAOError.TICKET_ALREADY_EXIST && historyData.isInside()) {
+                return new ResponseEntity(HttpStatus.NO_CONTENT);
+            }
+            return new ResponseEntity(HttpStatus.IM_USED);
+        }
+        return new ResponseEntity(HttpStatus.OK);
     }
 
     @RequestMapping("/ticket/delete/{id}")

@@ -12,6 +12,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import javax.persistence.NoResultException;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.logging.Logger;
 
@@ -40,22 +41,35 @@ public class EventController {
         }
     }
 
-    @RequestMapping("/event/all")
-    public String getAllEvents() {
+    @RequestMapping(value = "/event/all/{userId}", method = RequestMethod.GET)
+    public ResponseEntity<List<EventJson>> getAllEventsByUserId(@PathVariable int userId) {
+        logger.info("Event/all: " + userId);
         try {
-            List<EventData> eventList = eventService.getAllEvents();
-            for (EventData e : eventList) {
-                e.toString();
+            EventMapper eventMapper = new EventMapper();
+            List<EventData> eventDataList = eventService.getAllEventsByUserId(userId);
+            List<EventJson> eventJsonList = new ArrayList<>();
+            if (eventDataList.size() == 0) {
+                logger.info("Event/all: ZERO");
+                return new ResponseEntity<>(new ArrayList<>(), HttpStatus.NO_CONTENT);
             }
-            return eventList.size() > 0 ? eventList.toString() : "No events found";
+
+            for (EventData e : eventDataList) {
+                eventJsonList.add(eventMapper.toEventJson(e));
+            }
+            return new ResponseEntity<List<EventJson>>(eventJsonList, HttpStatus.OK);
         } catch (NoResultException e) {
-            return "No events found";
+            logger.info("Event/all: " + e.getMessage());
+            return new ResponseEntity<List<EventJson>>(new ArrayList<>(), HttpStatus.IM_USED);
+        } catch (AppException e) {
+            logger.info("Event/all APP_EXCEP: " + e.getMessage());
+            return new ResponseEntity<List<EventJson>>(new ArrayList<>(), HttpStatus.I_AM_A_TEAPOT);
         }
     }
 
-    @RequestMapping(value = "/event/{name}", method = RequestMethod.GET)
-    public ResponseEntity<EventJson> findEventByName(@PathVariable String name) {
-        logger.info("Event/code: " + name);
+    @RequestMapping(value = "/event/{name}/{code}", method = RequestMethod.GET)
+    public ResponseEntity<EventJson> findEventByName(@PathVariable String name, @PathVariable String code) {
+        logger.info("Event/name: " + name + " code: " + code);
+        //TODO check code also
         EventMapper eventMapper = new EventMapper();
         try {
             EventData event = eventService.getEventByName(name);
