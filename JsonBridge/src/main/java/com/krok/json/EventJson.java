@@ -1,6 +1,8 @@
 package com.krok.json;
 
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 
 /**
  * Created by Mateusz Krok on 2018-05-04
@@ -15,6 +17,7 @@ public class EventJson {
     private Date endEventDate;
     private int ownerId;
     private int ticketsPool;
+    private List<TicketJson> allTickets = new ArrayList<>(0);
 
     public int getId() {
         return id;
@@ -72,4 +75,11 @@ public class EventJson {
         this.ticketsPool = ticketsPool;
     }
 
+    public List<TicketJson> getAllTickets() {
+        return allTickets;
+    }
+
+    public void setAllTickets(List<TicketJson> allTickets) {
+        this.allTickets = allTickets;
+    }
 }

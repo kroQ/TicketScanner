@@ -1,14 +1,14 @@
 package com.krok.springboot.dto;
 
 import com.krok.data.TicketData;
-import com.krok.error.AppException;
-import com.krok.error.DAOError;
 import com.krok.springboot.dto.service.TicketService;
 import org.hibernate.SessionFactory;
 import org.hibernate.query.Query;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import org.springframework.transaction.annotation.Transactional;
+
+import java.util.List;
 
 /**
  * Created by Mateusz Krok on 2018-04-13
@@ -22,19 +22,35 @@ public class TicketDTO implements TicketService {
     SessionFactory sessionFactory;
 
     @Override
-    public void sendScannedData(TicketData ticketData) throws AppException {
-        if (checkIfExist(ticketData)) {
-            throw new AppException(DAOError.TICKET_ALREADY_EXIST, ticketData.getCode());
+    public int sendScannedData(TicketData ticketData) {
+        if (checkIfExist(ticketData) != 0) {
+            return ticketData.getId();
         }
         sessionFactory.getCurrentSession().save(ticketData);
-
-
+        return ticketData.getId();
     }
 
-    private boolean checkIfExist(TicketData ticketData) {
-        Query query = sessionFactory.getCurrentSession().createQuery("select 1 from TicketData t where t.code = :code");
+    private int checkIfExist(TicketData ticketData) {
+        Query query = sessionFactory.getCurrentSession().createQuery("select t.id from TicketData t where t.code = :code");
         query.setParameter("code", ticketData.getCode());
-        return (query.uniqueResult() != null);
+//        TicketData t = (TicketData) query.uniqueResult();
+        int t = query.list().size();
+        if (t > 0) {
+//            ticketData = (TicketData) query.list().get(0);
+            ticketData.setId((int) query.list().get(0));
+        }
+        return t;
+//        return (query.uniqueResult() != null);
+    }
+
+    @Override
+    public List<TicketData> getAllTicketsByEventId(int id) {
+        List<TicketData> ticketDataList;
+        Query query;
+        query = sessionFactory.getCurrentSession().createQuery("SELECT t FROM TicketData t WHERE t.eventId=:eventId")
+                .setParameter("eventId", id);
+        ticketDataList = query.getResultList();
+        return ticketDataList;
     }
 
     @Override

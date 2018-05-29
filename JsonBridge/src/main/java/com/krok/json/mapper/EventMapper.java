@@ -1,8 +1,13 @@
 package com.krok.json.mapper;
 
 import com.krok.data.EventData;
+import com.krok.data.TicketData;
 import com.krok.json.EventJson;
+import com.krok.json.TicketJson;
 import com.krok.json.mapper.service.EventMapperService;
+
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * Created by Mateusz Krok on 2018-05-04
@@ -19,6 +24,13 @@ public class EventMapper implements EventMapperService {
         json.setOwnerId(event.getOwnerId());
         json.setStartEventDate(event.getStartEventDate());
         json.setTicketsPool(event.getTicketsPool());
+
+        List<TicketJson> ticketJsonList = new ArrayList<>();
+        TicketMapper ticketMapper = new TicketMapper();
+        for (TicketData t : event.getAllTickets()) {
+            ticketJsonList.add(ticketMapper.toTicketJson(t));
+        }
+        json.setAllTickets(ticketJsonList);
         return json;
     }
 

@@ -11,8 +11,6 @@ import java.util.Date;
 @Table(name = "TICKETS")
 public class TicketData {
 
-    // TODO private inrefrace to sex field
-
     @Id
     @Column(name = "TIC_ID")
     @GeneratedValue(strategy = GenerationType.IDENTITY)

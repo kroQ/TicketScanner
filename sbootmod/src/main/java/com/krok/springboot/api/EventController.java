@@ -47,6 +47,7 @@ public class EventController {
         try {
             EventMapper eventMapper = new EventMapper();
             List<EventData> eventDataList = eventService.getAllEventsByUserId(userId);
+
             List<EventJson> eventJsonList = new ArrayList<>();
             if (eventDataList.size() == 0) {
                 logger.info("Event/all: ZERO");
@@ -54,11 +55,12 @@ public class EventController {
             }
 
             for (EventData e : eventDataList) {
+                logger.info("Tickety: " + e.getName() + " " + e.getAllTickets());
                 eventJsonList.add(eventMapper.toEventJson(e));
             }
             return new ResponseEntity<List<EventJson>>(eventJsonList, HttpStatus.OK);
         } catch (NoResultException e) {
-            logger.info("Event/all: " + e.getMessage());
+            logger.info("Error Event/all: " + e.getMessage());
             return new ResponseEntity<List<EventJson>>(new ArrayList<>(), HttpStatus.IM_USED);
         } catch (AppException e) {
             logger.info("Event/all APP_EXCEP: " + e.getMessage());

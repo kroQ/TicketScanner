@@ -1,7 +1,8 @@
 package com.krok.springboot.dto.service;
 
 import com.krok.data.TicketData;
-import com.krok.error.AppException;
+
+import java.util.List;
 
 /**
  * Created by Mateusz Krok on 2018-04-13
@@ -9,11 +10,13 @@ import com.krok.error.AppException;
 
 public interface TicketService {
 
-    void sendScannedData(TicketData ticketData) throws AppException;
+    int sendScannedData(TicketData ticketData);
 
     TicketData getTicketById(int id);
 
     TicketData getTicketByCode(String code);
+
+    List<TicketData> getAllTicketsByEventId(int id);
 
     boolean deleteTicketById(int id);
 

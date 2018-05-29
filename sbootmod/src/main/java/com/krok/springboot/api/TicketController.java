@@ -2,8 +2,6 @@ package com.krok.springboot.api;
 
 import com.krok.data.HistoryData;
 import com.krok.data.TicketData;
-import com.krok.error.AppException;
-import com.krok.error.DAOError;
 import com.krok.json.TicketJson;
 import com.krok.json.mapper.TicketMapper;
 import com.krok.springboot.dto.service.HistoryService;
@@ -15,7 +13,9 @@ import org.springframework.web.bind.annotation.*;
 
 import javax.persistence.NoResultException;
 import java.time.LocalTime;
+import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.List;
 import java.util.logging.Logger;
 
 /**
@@ -46,6 +46,21 @@ public class TicketController {
         }
     }
 
+    @RequestMapping(value = "/ticket/all/{eventId}", method = RequestMethod.GET)
+    public ResponseEntity<List<TicketJson>> getAllTicketByEventId(@PathVariable("eventId") int eventId) {
+        logger.info("Ticket/all: " + eventId);
+        TicketMapper ticketMapper = new TicketMapper();
+        List<TicketData> ticketDataList = ticketService.getAllTicketsByEventId(eventId);
+        List<TicketJson> ticketJsonList = new ArrayList<>();
+        if (ticketDataList.size() == 0) {
+            return new ResponseEntity<>(new ArrayList<>(), HttpStatus.NO_CONTENT);
+        }
+        for (TicketData e : ticketDataList) {
+            ticketJsonList.add(ticketMapper.toTicketJson(e));
+        }
+        return new ResponseEntity<List<TicketJson>>(ticketJsonList, HttpStatus.OK);
+    }
+
     @RequestMapping("/ticket/code/{code}")
     public String findTicketByCode(@PathVariable("code") String code) {
         try {
@@ -61,6 +76,7 @@ public class TicketController {
         logger.info("/ticket/userId/eventId: " + userId + " " + eventId);
         TicketMapper mapper = new TicketMapper();
         TicketData ticketData = mapper.toTicketData(ticketJson);
+        int ticketId;
 
         //TODO dostac ticketID i go przypisac do histori
 
@@ -70,17 +86,19 @@ public class TicketController {
         historyData.setDate(Calendar.getInstance().getTime());
         historyData.setTime(LocalTime.now());
 
+        ticketId = ticketService.sendScannedData(ticketData);
+
+        logger.info("TICKET ID: " + ticketId);
+
+        historyData.setTicketId(ticketId);
         historyService.createOrUpdate(historyData);
 
-        try {
-            ticketService.sendScannedData(ticketData);
-        } catch (AppException e) {
-            if (e.getErrorCode() == DAOError.TICKET_ALREADY_EXIST && historyData.isInside()) {
-                return new ResponseEntity(HttpStatus.NO_CONTENT);
-            }
-            return new ResponseEntity(HttpStatus.IM_USED);
+        if (!historyData.isInside()) {
+            return new ResponseEntity(HttpStatus.NO_CONTENT);
         }
         return new ResponseEntity(HttpStatus.OK);
+//        return new ResponseEntity(HttpStatus.IM_USED);
+
     }
 
     @RequestMapping("/ticket/delete/{id}")

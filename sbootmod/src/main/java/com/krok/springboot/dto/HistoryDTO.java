@@ -8,6 +8,7 @@ import org.springframework.stereotype.Component;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
+import java.util.logging.Logger;
 
 /**
  * Created by Mateusz Krok on 2018-04-13
@@ -17,6 +18,9 @@ import java.util.List;
 @Transactional
 public class HistoryDTO implements HistoryService {
 
+    private static Logger logger = Logger.getLogger(
+            Thread.currentThread().getStackTrace()[0].getClassName());
+
     @Autowired
     SessionFactory sessionFactory;
 
@@ -24,6 +28,8 @@ public class HistoryDTO implements HistoryService {
     public void createOrUpdate(HistoryData historyData) {
         boolean isHere;
         List response;
+
+        logger.info("TICKET ID: " + historyData.getTicketId());
 
         response = sessionFactory.getCurrentSession().createQuery("SELECT h.isInside from HistoryData h " +
                 "where h.ticketId = :ticketId order by h.id desc ").setParameter("ticketId", historyData.getTicketId()).list();

@@ -2,6 +2,8 @@ package com.krok.data;
 
 import javax.persistence.*;
 import java.util.Date;
+import java.util.HashSet;
+import java.util.Set;
 
 /**
  * Created by Mateusz Krok on 2018-03-15
@@ -33,6 +35,13 @@ public class EventData {
 
     @Column(name = "EVE_TICKET_POOL_ID")
     private int ticketsPool;
+
+    @OneToMany(fetch = FetchType.EAGER, mappedBy = "eventId")
+    private Set<TicketData> allTickets = new HashSet<>(0);
+
+    public Set<TicketData> getAllTickets() {
+        return allTickets;
+    }
 
     public String getName() {
         return name;
