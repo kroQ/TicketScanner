@@ -27,7 +27,7 @@ public class UserDTO implements UserService {
     public void createOrUpdate(UserData userData) throws AppException {
         if (isUniqueLogin(userData)) {
             int i = (int) sessionFactory.getCurrentSession().save(userData);
-            System.out.println("\n\n==========Nowy id to: " + i);
+            System.out.println("\nRegistered, id: " + i);
         } else {
             throw new AppException(DAOError.LOGIN_IS_NOT_UNIQUE, userData.getLogin());
         }
@@ -41,13 +41,19 @@ public class UserDTO implements UserService {
     }
 
     @Override
-    public UserData getUserByLogin(String login) throws AppException {
+    public UserData getUserByLogin(UserData userData) throws AppException {
         try {
             UserData user = (UserData) sessionFactory.getCurrentSession().createQuery("FROM UserData user WHERE user.login=:login")
-                    .setParameter("login", login).getSingleResult();
-            return user;
+                    .setParameter("login", userData.getLogin()).getSingleResult();
+            if (userData.getPassword().equals(user.getPassword())) {
+                System.out.println("Pass correct");
+                return user;
+            } else {
+                System.out.println("Pass INCORRECT");
+                throw new AppException(DAOError.WRONG_PASSWORD, userData.getLogin());
+            }
         } catch (NoResultException e) {
-            throw new AppException(DAOError.LOGIN_NOT_FOUND, login);
+            throw new AppException(DAOError.LOGIN_NOT_FOUND, userData.getLogin());
         }
     }
 

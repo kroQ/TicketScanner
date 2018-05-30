@@ -15,6 +15,7 @@ public class DeviceMapper implements DeviceMapperService {
         json.setId(deviceData.getId());
         json.setName(deviceData.getName());
         json.setDeviceType(deviceData.getDeviceType());
+        json.setAndroidId(deviceData.getAndroidId());
         return json;
     }
 
@@ -23,6 +24,7 @@ public class DeviceMapper implements DeviceMapperService {
         deviceData.setId(json.getId());
         deviceData.setName(json.getName());
         deviceData.setDeviceType(json.getDeviceType());
+        deviceData.setAndroidId(json.getAndroidId());
         return deviceData;
     }
 }

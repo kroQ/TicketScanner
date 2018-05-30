@@ -21,6 +21,9 @@ public class DeviceData {
     @Column(name = "DEV_NAME")
     private String name;
 
+    @Column(name = "DEV_ANDROID_ID")
+    private Long androidId;
+
     public int getId() {
         return id;
     }
@@ -43,6 +46,14 @@ public class DeviceData {
 
     public void setName(String name) {
         this.name = name;
+    }
+
+    public Long getAndroidId() {
+        return androidId;
+    }
+
+    public void setAndroidId(Long androidId) {
+        this.androidId = androidId;
     }
 
     @Override

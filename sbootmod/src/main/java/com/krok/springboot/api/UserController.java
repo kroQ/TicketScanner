@@ -65,58 +65,37 @@ public class UserController {
         return isDeleted ? "Deleted: " + id : "User not exist";
     }
 
-//    @RequestMapping("/user/generate/{login}")
-//    public String newUser(@PathVariable("login") String login) throws AppException {
-//        UserData user;
-//        user = new UserData("N", "S", "P", "E", login, 1);
-//        try {
-//            userService.create(user);
-//        } catch (AppException e) {
-//            logger.info(e.getCodeMessage());
-//            return "nope: " + e.getMessage() + "\n--\n";
-//        }
-//        return user.toString();
-//    }
-
     @RequestMapping(value = "/user/register", method = POST)
     public ResponseEntity<UserJson> newUser(@RequestBody UserJson userJson) {
-        logger.info("Przylecialo: " + userJson.getLogin());
+        logger.info("/user/register: " + userJson.getLogin());
+        logger.info("/user/login_devIDg: " + userJson.getDeviceId());
         UserMapper userMapper = new UserMapper();
+        UserData userData;
         try {
-            UserData userData = userMapper.toUserData(userJson);
+            userData = userMapper.toUserData(userJson);
             userService.createOrUpdate(userData);
         } catch (AppException e) {
             logger.info(e.getCodeMessage());
             return new ResponseEntity<>(userJson, HttpStatus.IM_USED);
         }
-        return new ResponseEntity<>(userJson, HttpStatus.OK);
+        return new ResponseEntity<>(userMapper.toUserJson(userData), HttpStatus.OK);
     }
-
-//    @RequestMapping(value = "/user/register", method = POST)
-//    public UserJson newUser(@RequestBody UserJson userJson) throws AppException {
-//        System.out.println("Przylecialo: " + userJson.getLogin());
-//        UserMapper userMapper = new UserMapper();
-//        try {
-//            UserData userData = userMapper.toUserData(userJson);
-//            userService.create(userData);
-//        } catch (AppException e) {
-//            logger.info(e.getCodeMessage());
-//            return null;
-//        }
-//        return userJson;
-//    }
 
     @RequestMapping(value = "/user/login", method = POST)
     public ResponseEntity<UserJson> login(@RequestBody UserJson user) {
         logger.info("/user/login: " + user.getLogin());
+        logger.info("/user/login_devIDg: " + user.getDeviceId());
         UserMapper userMapper = new UserMapper();
+        UserData userData = userMapper.toUserData(user);
         try {
-            UserData userData = userService.getUserByLogin(user.getLogin());
+            userService.getUserByLogin(userData);
             return new ResponseEntity<>(userMapper.toUserJson(userData), HttpStatus.OK);
         } catch (AppException e) {
             logger.info(e.getCodeMessage());
             if (e.getErrorCode().equals(DAOError.LOGIN_NOT_FOUND)) {
                 return new ResponseEntity<>(new UserJson(), HttpStatus.NO_CONTENT);
+            } else if (e.getErrorCode().equals(DAOError.WRONG_PASSWORD)) {
+                return new ResponseEntity<>(new UserJson(), HttpStatus.IM_USED);
             }
             logger.info(e.getCodeMessage());
             return new ResponseEntity<>(new UserJson(), HttpStatus.I_AM_A_TEAPOT);

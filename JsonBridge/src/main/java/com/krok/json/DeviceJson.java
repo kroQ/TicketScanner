@@ -9,6 +9,7 @@ public class DeviceJson {
     private int id;
     private String deviceType;
     private String name;
+    private Long androidId;
 
     public int getId() {
         return id;
@@ -34,4 +35,11 @@ public class DeviceJson {
         this.name = name;
     }
 
+    public Long getAndroidId() {
+        return androidId;
+    }
+
+    public void setAndroidId(Long androidId) {
+        this.androidId = androidId;
+    }
 }

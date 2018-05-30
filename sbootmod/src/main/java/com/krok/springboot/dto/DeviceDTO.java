@@ -1,8 +1,11 @@
 package com.krok.springboot.dto;
 
 import com.krok.data.DeviceData;
+import com.krok.error.AppException;
+import com.krok.error.DAOError;
 import com.krok.springboot.dto.service.DeviceService;
 import org.hibernate.SessionFactory;
+import org.hibernate.query.Query;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import org.springframework.transaction.annotation.Transactional;
@@ -19,8 +22,15 @@ public class DeviceDTO implements DeviceService {
     SessionFactory sessionFactory;
 
     @Override
-    public void createOrUpdate(DeviceData deviceData) {
-        sessionFactory.getCurrentSession().saveOrUpdate(deviceData);
+    public void createOrUpdate(DeviceData deviceData) throws AppException {
+        DeviceData dbData;
+        dbData = isExisting(deviceData);
+        if (dbData == null) {
+            sessionFactory.getCurrentSession().save(deviceData);
+        } else {
+            deviceData.setId(dbData.getId());
+            throw new AppException(DAOError.DEVICE_ALREADY_REGISTERED, deviceData.getAndroidId());
+        }
     }
 
     @Override
@@ -33,5 +43,13 @@ public class DeviceDTO implements DeviceService {
     public boolean deleteDeviceById(int id) {
         return sessionFactory.getCurrentSession().createQuery("DELETE DeviceData WHERE id = :id")
                 .setParameter("id", id).executeUpdate() > 0;
+    }
+
+    private DeviceData isExisting(DeviceData deviceData) {
+        Query query;
+        query = sessionFactory.getCurrentSession()
+                .createQuery("FROM DeviceData device WHERE device.androidId=:androidId")
+                .setParameter("androidId", deviceData.getAndroidId());
+        return (DeviceData) query.getResultList().get(0);
     }
 }

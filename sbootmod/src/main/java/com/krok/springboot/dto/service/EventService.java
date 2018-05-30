@@ -15,7 +15,7 @@ public interface EventService {
 
     EventData getEventById(int id);
 
-    EventData getEventByName(String name) throws AppException;
+    EventData getEventByNameAndCode(EventData eventData) throws AppException;
 
     List<EventData> getAllEventsByUserId(int id) throws AppException;
 

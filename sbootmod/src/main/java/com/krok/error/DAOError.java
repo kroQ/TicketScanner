@@ -10,6 +10,9 @@ public enum DAOError implements AppError {
     EVENT_NOT_FOUND("Event: {0} not found"),
     EVENT_IS_NOT_UNIQUE("Event: {0} is already in use."),
     LOGIN_IS_NOT_UNIQUE("Login {0} is already in use."),
+    DEVICE_ALREADY_REGISTERED("DeviceId: {0} is already in use."),
+    WRONG_PASSWORD("Wrong password for: {0} user"),
+    WRONG_CODE("Wrong code for: {0} event"),
     TICKET_ALREADY_EXIST("Ticket {0} is already in use.");
 
     String message;

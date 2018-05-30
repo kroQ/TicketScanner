@@ -71,15 +71,19 @@ public class EventController {
     @RequestMapping(value = "/event/{name}/{code}", method = RequestMethod.GET)
     public ResponseEntity<EventJson> findEventByName(@PathVariable String name, @PathVariable String code) {
         logger.info("Event/name: " + name + " code: " + code);
-        //TODO check code also
         EventMapper eventMapper = new EventMapper();
+        EventData event = new EventData();
+        event.setName(name);
+        event.setCode(code);
         try {
-            EventData event = eventService.getEventByName(name);
+            eventService.getEventByNameAndCode(event);
             return new ResponseEntity<>(eventMapper.toEventJson(event), HttpStatus.OK);
         } catch (AppException e) {
             logger.info(e.getCodeMessage());
             if (e.getErrorCode().equals(DAOError.EVENT_NOT_FOUND)) {
                 return new ResponseEntity<>(new EventJson(), HttpStatus.NO_CONTENT);
+            } else if (e.getErrorCode().equals(DAOError.WRONG_CODE)) {
+                return new ResponseEntity<>(new EventJson(), HttpStatus.IM_USED);
             }
             logger.info(e.getCodeMessage());
             return new ResponseEntity<>(new EventJson(), HttpStatus.I_AM_A_TEAPOT);

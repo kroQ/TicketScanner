@@ -13,7 +13,7 @@ public interface UserService {
 
     UserData getUserById(int id);
 
-    UserData getUserByLogin(String login) throws AppException;
+    UserData getUserByLogin(UserData userData) throws AppException;
 
     boolean deleteUserById(int id);
 

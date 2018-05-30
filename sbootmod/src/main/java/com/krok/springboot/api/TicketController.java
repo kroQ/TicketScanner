@@ -78,8 +78,6 @@ public class TicketController {
         TicketData ticketData = mapper.toTicketData(ticketJson);
         int ticketId;
 
-        //TODO dostac ticketID i go przypisac do histori
-
         HistoryData historyData = new HistoryData();
         historyData.setEventId(ticketJson.getEventId());
         historyData.setUserId(ticketJson.getUserId());
@@ -97,7 +95,6 @@ public class TicketController {
             return new ResponseEntity(HttpStatus.NO_CONTENT);
         }
         return new ResponseEntity(HttpStatus.OK);
-//        return new ResponseEntity(HttpStatus.IM_USED);
 
     }
 

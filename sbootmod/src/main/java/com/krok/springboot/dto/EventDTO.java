@@ -57,13 +57,16 @@ public class EventDTO implements EventService {
     }
 
     @Override
-    public EventData getEventByName(String name) throws AppException {
+    public EventData getEventByNameAndCode(EventData eventData) throws AppException {
         try {
             EventData event = (EventData) sessionFactory.getCurrentSession().createQuery("FROM EventData event WHERE event.name=:name")
-                    .setParameter("name", name).getSingleResult();
-            return event;
+                    .setParameter("name", eventData.getName()).getSingleResult();
+            if (event.getCode().equals(eventData.getCode())) {
+                return event;
+            }
+            throw new AppException(DAOError.WRONG_CODE, eventData.getName());
         } catch (NoResultException e) {
-            throw new AppException(DAOError.EVENT_NOT_FOUND, name);
+            throw new AppException(DAOError.EVENT_NOT_FOUND, eventData.getName());
         }
     }
 
