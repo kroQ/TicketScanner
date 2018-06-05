@@ -84,11 +84,10 @@ public class UserController {
     @RequestMapping(value = "/user/login", method = POST)
     public ResponseEntity<UserJson> login(@RequestBody UserJson user) {
         logger.info("/user/login: " + user.getLogin());
-        logger.info("/user/login_devIDg: " + user.getDeviceId());
         UserMapper userMapper = new UserMapper();
         UserData userData = userMapper.toUserData(user);
         try {
-            userService.getUserByLogin(userData);
+            userData = userService.getUserByLogin(userData);
             return new ResponseEntity<>(userMapper.toUserJson(userData), HttpStatus.OK);
         } catch (AppException e) {
             logger.info(e.getCodeMessage());
