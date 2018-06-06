@@ -15,6 +15,8 @@ public interface UserService {
 
     UserData getUserByLogin(UserData userData) throws AppException;
 
+    UserData getUserToLogin(String login);
+
     boolean deleteUserById(int id);
 
 }

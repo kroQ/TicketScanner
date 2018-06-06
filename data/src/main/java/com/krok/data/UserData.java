@@ -1,6 +1,8 @@
 package com.krok.data;
 
 import javax.persistence.*;
+import java.util.HashSet;
+import java.util.Set;
 
 /**
  * Created by Mateusz Krok on 2018-04-09
@@ -32,6 +34,9 @@ public class UserData {
 
     @Column(name = "USR_DEVICE_ID")
     private int deviceId;
+
+    @OneToMany(fetch = FetchType.LAZY, mappedBy = "userData")
+    private Set<UserRoleData> userRole = new HashSet<>(0);
 
     public UserData() {
     }
@@ -99,6 +104,14 @@ public class UserData {
 
     public void setDeviceId(int deviceId) {
         this.deviceId = deviceId;
+    }
+
+    public Set<UserRoleData> getUserRole() {
+        return userRole;
+    }
+
+    public void setUserRole(Set<UserRoleData> userRole) {
+        this.userRole = userRole;
     }
 
     @Override

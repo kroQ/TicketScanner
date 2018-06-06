@@ -11,6 +11,7 @@ import org.springframework.stereotype.Component;
 import org.springframework.transaction.annotation.Transactional;
 
 import javax.persistence.NoResultException;
+import java.util.List;
 
 /**
  * Created by Mateusz Krok on 2018-04-13
@@ -55,6 +56,23 @@ public class UserDTO implements UserService {
         } catch (NoResultException e) {
             throw new AppException(DAOError.LOGIN_NOT_FOUND, userData.getLogin());
         }
+    }
+
+    @Override
+    @SuppressWarnings("unchecked")
+    public UserData getUserToLogin(String login) {
+
+        List<UserData> users;
+
+        users = sessionFactory.getCurrentSession()
+                .createQuery("from UserData where login=?").setParameter(0, login).list();
+
+        if (users.size() > 0) {
+            return users.get(0);
+        } else {
+            return null;
+        }
+
     }
 
     @Override

@@ -10,6 +10,8 @@ import com.krok.springboot.dto.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -63,6 +65,13 @@ public class UserController {
     public String deleteUserById(@PathVariable("id") int id) {
         boolean isDeleted = userService.deleteUserById(id);
         return isDeleted ? "Deleted: " + id : "User not exist";
+    }
+
+    @RequestMapping(value = "/login", method = POST)
+    public String xd() {
+        final Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+        final String login = auth.getName();
+        return login;
     }
 
     @RequestMapping(value = "/user/register", method = POST)
