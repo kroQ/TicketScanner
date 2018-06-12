@@ -33,12 +33,14 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     @Override
     protected void configure(HttpSecurity http) throws Exception {
 
-        http.csrf().disable().authorizeRequests().antMatchers("/admin/**")
-                .access("hasRole('ROLE_ADMIN')").antMatchers("/user/**")
-                .access("hasRole('ROLE_USER')").and().formLogin()
-                .loginProcessingUrl("/login").successForwardUrl("/login")
+        http.csrf().disable().authorizeRequests()
+                .antMatchers("/admin/**").access("hasRole('ROLE_ADMIN')")
+                .antMatchers("/user/**").access("hasRole('ROLE_USER') OR hasRole('ROLE_ADMIN')")
+//                .and().csrf()
+                .and().formLogin().loginProcessingUrl("/login").successForwardUrl("/login")
                 .usernameParameter("username")
-                .passwordParameter("password").and().userDetailsService(userDetailsService).httpBasic();
+                .passwordParameter("password").and().rememberMe()
+                .userDetailsService(userDetailsService).and().httpBasic();
     }
 
     @Bean

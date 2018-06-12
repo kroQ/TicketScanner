@@ -68,16 +68,35 @@ public class UserController {
     }
 
     @RequestMapping(value = "/login", method = POST)
-    public String xd() {
+    public ResponseEntity<UserJson> loginBySecurity() {
         final Authentication auth = SecurityContextHolder.getContext().getAuthentication();
         final String login = auth.getName();
-        return login;
+        UserJson userJson;
+        UserMapper userMapper = new UserMapper();
+        logger.info("Proba logowania: " + login);
+        UserData userData = new UserData();
+        userData.setLogin(login);
+        try {
+            userData = userService.getUserByLogin(userData);
+        } catch (AppException e) {
+            e.printStackTrace();
+        }
+        userJson = userMapper.toUserJson(userData);
+        return new ResponseEntity<>(userJson, HttpStatus.OK);
     }
 
-    @RequestMapping(value = "/user/register", method = POST)
+    @RequestMapping(value = "/login-error", method = POST)
+    public ResponseEntity loginError() {
+        final Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+        final String login = auth.getName();
+        logger.info("ERROR login: " + login);
+        return new ResponseEntity(HttpStatus.NO_CONTENT);
+    }
+
+    @RequestMapping(value = "/register", method = POST)
     public ResponseEntity<UserJson> newUser(@RequestBody UserJson userJson) {
-        logger.info("/user/register: " + userJson.getLogin());
-        logger.info("/user/login_devIDg: " + userJson.getDeviceId());
+        logger.info("/register: " + userJson.getLogin());
+        logger.info("/login_devIDg: " + userJson.getDeviceId());
         UserMapper userMapper = new UserMapper();
         UserData userData;
         try {
@@ -89,11 +108,35 @@ public class UserController {
         }
         return new ResponseEntity<>(userMapper.toUserJson(userData), HttpStatus.OK);
     }
+//
+//    @RequestMapping(value = "/user/login", method = POST)
+//    public ResponseEntity<UserJson> login(@RequestBody UserJson user) {
+//        logger.info("/user/login: " + user.getLogin());
+//        UserMapper userMapper = new UserMapper();
+//        UserData userData = userMapper.toUserData(user);
+//        try {
+//            userData = userService.getUserByLogin(userData);
+//            return new ResponseEntity<>(userMapper.toUserJson(userData), HttpStatus.OK);
+//        } catch (AppException e) {
+//            logger.info(e.getCodeMessage());
+//            if (e.getErrorCode().equals(DAOError.LOGIN_NOT_FOUND)) {
+//                return new ResponseEntity<>(new UserJson(), HttpStatus.NO_CONTENT);
+//            } else if (e.getErrorCode().equals(DAOError.WRONG_PASSWORD)) {
+//                return new ResponseEntity<>(new UserJson(), HttpStatus.IM_USED);
+//            }
+//            logger.info(e.getCodeMessage());
+//            return new ResponseEntity<>(new UserJson(), HttpStatus.I_AM_A_TEAPOT);
+//        }
+//    }
 
-    @RequestMapping(value = "/user/login", method = POST)
-    public ResponseEntity<UserJson> login(@RequestBody UserJson user) {
-        logger.info("/user/login: " + user.getLogin());
+
+    @RequestMapping(value = "/login22", method = POST)
+    public ResponseEntity<UserJson> loginSecure(String username, String password) {
+        logger.info("/justlogin: " + username);
         UserMapper userMapper = new UserMapper();
+        UserJson user = new UserJson();
+        user.setLogin(username);
+        user.setPassword(password);
         UserData userData = userMapper.toUserData(user);
         try {
             userData = userService.getUserByLogin(userData);

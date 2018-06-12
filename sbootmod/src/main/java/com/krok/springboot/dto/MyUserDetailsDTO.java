@@ -23,7 +23,6 @@ import java.util.Set;
 @Service("userDetailsService")
 public class MyUserDetailsDTO implements UserDetailsService {
 
-    //get user from the database, via Hibernate
     @Autowired
     private UserService userService;
 
@@ -31,11 +30,10 @@ public class MyUserDetailsDTO implements UserDetailsService {
     @Override
     public UserDetails loadUserByUsername(final String username)
             throws UsernameNotFoundException {
-
+        System.out.print("AUTORYZACJA Przyszedl nick: " + username);
         com.krok.data.UserData user = userService.getUserToLogin(username);
-        List<GrantedAuthority> authorities =
-                buildUserAuthority(user.getUserRole());
-
+        List<GrantedAuthority> authorities = buildUserAuthority(user.getUserRole());
+        System.out.println(" ma tyle roli: " + user.getUserRole().size());
         return buildUserForAuthentication(user, authorities);
 
     }
@@ -44,6 +42,7 @@ public class MyUserDetailsDTO implements UserDetailsService {
     // org.springframework.security.core.userdetails.User
     private User buildUserForAuthentication(com.krok.data.UserData user,
                                             List<GrantedAuthority> authorities) {
+        System.out.println("AUTORYZACJA Budowanie nicku: " + user.getLogin());
         return new User(user.getLogin(), user.getPassword(),
                 true, true, true, true, authorities);
     }
@@ -54,6 +53,7 @@ public class MyUserDetailsDTO implements UserDetailsService {
 
         // Build user's authorities
         for (UserRoleData userRole : userRoles) {
+            System.out.println("AUTORYZACJA Pobranie roli: " + userRole.getUserData().getLogin());
             setAuths.add(new SimpleGrantedAuthority(userRole.getRole()));
         }
 

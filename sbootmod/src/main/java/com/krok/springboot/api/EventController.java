@@ -31,7 +31,7 @@ public class EventController {
 
     // ******************** EVENT API ******************* //
 
-    @RequestMapping("/event/id/{id}")
+    @RequestMapping("/user/event/id/{id}")
     public String findEvent(@PathVariable("id") int id) {
         try {
             EventData event = eventService.getEventById(id);
@@ -41,7 +41,7 @@ public class EventController {
         }
     }
 
-    @RequestMapping(value = "/event/all/{userId}", method = RequestMethod.GET)
+    @RequestMapping(value = "/user/event/all/{userId}", method = RequestMethod.GET)
     public ResponseEntity<List<EventJson>> getAllEventsByUserId(@PathVariable int userId) {
         logger.info("Event/all: " + userId);
         try {
@@ -68,7 +68,7 @@ public class EventController {
         }
     }
 
-    @RequestMapping(value = "/event/{name}/{code}", method = RequestMethod.GET)
+    @RequestMapping(value = "/user/event/{name}/{code}", method = RequestMethod.GET)
     public ResponseEntity<EventJson> findEventByName(@PathVariable String name, @PathVariable String code) {
         logger.info("Event/name: " + name + " code: " + code);
         EventMapper eventMapper = new EventMapper();
@@ -76,7 +76,7 @@ public class EventController {
         event.setName(name);
         event.setCode(code);
         try {
-            eventService.getEventByNameAndCode(event);
+            event = eventService.getEventByNameAndCode(event);
             return new ResponseEntity<>(eventMapper.toEventJson(event), HttpStatus.OK);
         } catch (AppException e) {
             logger.info(e.getCodeMessage());
@@ -90,7 +90,7 @@ public class EventController {
         }
     }
 
-    @RequestMapping(value = "/event/", method = RequestMethod.POST)
+    @RequestMapping(value = "/user/event/", method = RequestMethod.POST)
     public ResponseEntity<EventJson> newEvent(@RequestBody EventJson eventJson) {
         logger.info("Event/: " + eventJson.getName());
         EventMapper eventMapper = new EventMapper();
@@ -105,19 +105,9 @@ public class EventController {
         }
         logger.info("Event/: and ID is: " + eventJson.getId());
         return new ResponseEntity<>(eventJson, HttpStatus.OK);
-//        Calendar today = Calendar.getInstance();
-//        Calendar tomorrow = Calendar.getInstance();
-//        today.set(Calendar.MILLISECOND, 0);
-//        tomorrow.add(Calendar.DATE, 1);
-//        tomorrow.set(Calendar.MILLISECOND, 0);
-//        EventData event;
-//        event = new EventData("C", today.getTime(), tomorrow.getTime(), 1, 20);
-
-//        eventService.create(event);
-//        return event.toString();
     }
 
-    @RequestMapping("/event/delete/{id}")
+    @RequestMapping("/user/event/delete/{id}")
     public String deleteEvent(@PathVariable("id") int id) {
         boolean isDeleted = eventService.deleteEventById(id);
         return isDeleted ? "Deleted: " + id : "Event not exist";

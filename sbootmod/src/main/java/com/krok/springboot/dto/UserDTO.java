@@ -1,6 +1,7 @@
 package com.krok.springboot.dto;
 
 import com.krok.data.UserData;
+import com.krok.data.UserRoleData;
 import com.krok.error.AppException;
 import com.krok.error.DAOError;
 import com.krok.springboot.dto.service.UserService;
@@ -27,7 +28,11 @@ public class UserDTO implements UserService {
     @Override
     public void createOrUpdate(UserData userData) throws AppException {
         if (isUniqueLogin(userData)) {
+            UserRoleData userRoleData = new UserRoleData();
+            userRoleData.setRole("ROLE_USER");
+            userRoleData.setUserData(userData);
             int i = (int) sessionFactory.getCurrentSession().save(userData);
+            sessionFactory.getCurrentSession().save(userRoleData);
             System.out.println("\nRegistered, id: " + i);
         } else {
             throw new AppException(DAOError.LOGIN_IS_NOT_UNIQUE, userData.getLogin());
@@ -46,13 +51,7 @@ public class UserDTO implements UserService {
         try {
             UserData user = (UserData) sessionFactory.getCurrentSession().createQuery("FROM UserData user WHERE user.login=:login")
                     .setParameter("login", userData.getLogin()).getSingleResult();
-            if (userData.getPassword().equals(user.getPassword())) {
-                System.out.println("Pass correct");
                 return user;
-            } else {
-                System.out.println("Pass INCORRECT");
-                throw new AppException(DAOError.WRONG_PASSWORD, userData.getLogin());
-            }
         } catch (NoResultException e) {
             throw new AppException(DAOError.LOGIN_NOT_FOUND, userData.getLogin());
         }
@@ -65,11 +64,13 @@ public class UserDTO implements UserService {
         List<UserData> users;
 
         users = sessionFactory.getCurrentSession()
-                .createQuery("from UserData where login=?").setParameter(0, login).list();
+                .createQuery("from UserData where login=:login").setParameter("login", login).list();
 
         if (users.size() > 0) {
+            System.out.println("AUTORYZACJA Zwracam: " + users.get(0).getLogin());
             return users.get(0);
         } else {
+            System.out.println("AUTORYZACJA BRAK NICKU! ");
             return null;
         }
 
