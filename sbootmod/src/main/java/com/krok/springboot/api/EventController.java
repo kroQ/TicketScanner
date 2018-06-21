@@ -5,7 +5,7 @@ import com.krok.error.AppException;
 import com.krok.error.DAOError;
 import com.krok.json.EventJson;
 import com.krok.json.mapper.EventMapper;
-import com.krok.springboot.dto.service.EventService;
+import com.krok.springboot.dao.service.EventService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;

@@ -1,4 +1,4 @@
-package com.krok.springboot.dto.service;
+package com.krok.springboot.dao.service;
 
 import com.krok.data.DeviceData;
 import com.krok.error.AppException;

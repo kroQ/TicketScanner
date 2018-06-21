@@ -1,7 +1,7 @@
-package com.krok.springboot.dto;
+package com.krok.springboot.dao;
 
 import com.krok.data.TicketData;
-import com.krok.springboot.dto.service.TicketService;
+import com.krok.springboot.dao.service.TicketService;
 import org.hibernate.SessionFactory;
 import org.hibernate.query.Query;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -16,7 +16,7 @@ import java.util.List;
 
 @Component
 @Transactional
-public class TicketDTO implements TicketService {
+public class TicketDAO implements TicketService {
 
     @Autowired
     SessionFactory sessionFactory;

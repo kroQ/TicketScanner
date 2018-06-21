@@ -1,7 +1,7 @@
 package com.krok.springboot.api;
 
 import com.krok.data.HistoryData;
-import com.krok.springboot.dto.service.HistoryService;
+import com.krok.springboot.dao.service.HistoryService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;

@@ -1,7 +1,7 @@
-package com.krok.springboot.dto;
+package com.krok.springboot.dao;
 
 import com.krok.data.UserRoleData;
-import com.krok.springboot.dto.service.UserService;
+import com.krok.springboot.dao.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
@@ -21,7 +21,7 @@ import java.util.Set;
  * Created by Mateusz Krok on 2018-06-06
  */
 @Service("userDetailsService")
-public class MyUserDetailsDTO implements UserDetailsService {
+public class MyUserDetailsDAO implements UserDetailsService {
 
     @Autowired
     private UserService userService;

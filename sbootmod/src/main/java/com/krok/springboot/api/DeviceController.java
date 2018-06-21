@@ -4,7 +4,7 @@ import com.krok.data.DeviceData;
 import com.krok.error.AppException;
 import com.krok.json.DeviceJson;
 import com.krok.json.mapper.DeviceMapper;
-import com.krok.springboot.dto.service.DeviceService;
+import com.krok.springboot.dao.service.DeviceService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;

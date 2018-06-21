@@ -1,7 +1,7 @@
-package com.krok.springboot.dto;
+package com.krok.springboot.dao;
 
 import com.krok.data.HistoryData;
-import com.krok.springboot.dto.service.HistoryService;
+import com.krok.springboot.dao.service.HistoryService;
 import org.hibernate.SessionFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
@@ -16,7 +16,7 @@ import java.util.logging.Logger;
 
 @Component
 @Transactional
-public class HistoryDTO implements HistoryService {
+public class HistoryDAO implements HistoryService {
 
     private static Logger logger = Logger.getLogger(
             Thread.currentThread().getStackTrace()[0].getClassName());

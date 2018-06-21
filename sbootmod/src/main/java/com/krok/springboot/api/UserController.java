@@ -6,7 +6,7 @@ import com.krok.error.DAOError;
 import com.krok.json.UserJson;
 import com.krok.json.mapper.UserMapper;
 import com.krok.json.mapper.service.UserMapperService;
-import com.krok.springboot.dto.service.UserService;
+import com.krok.springboot.dao.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;

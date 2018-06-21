@@ -10,6 +10,7 @@ import com.krok.json.mapper.service.DeviceMapperService;
 
 public class DeviceMapper implements DeviceMapperService {
 
+    @Override
     public DeviceJson toDeviceJson(DeviceData deviceData) {
         DeviceJson json = new DeviceJson();
         json.setId(deviceData.getId());
@@ -19,6 +20,7 @@ public class DeviceMapper implements DeviceMapperService {
         return json;
     }
 
+    @Override
     public DeviceData toDeviceData(DeviceJson json) {
         DeviceData deviceData = new DeviceData();
         deviceData.setId(json.getId());

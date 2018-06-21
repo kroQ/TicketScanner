@@ -1,10 +1,10 @@
-package com.krok.springboot.dto;
+package com.krok.springboot.dao;
 
 import com.krok.data.UserData;
 import com.krok.data.UserRoleData;
 import com.krok.error.AppException;
 import com.krok.error.DAOError;
-import com.krok.springboot.dto.service.UserService;
+import com.krok.springboot.dao.service.UserService;
 import org.hibernate.SessionFactory;
 import org.hibernate.query.Query;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -20,7 +20,7 @@ import java.util.List;
 
 @Component
 @Transactional
-public class UserDTO implements UserService {
+public class UserDAO implements UserService {
 
     @Autowired
     SessionFactory sessionFactory;

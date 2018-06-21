@@ -1,9 +1,9 @@
-package com.krok.springboot.dto;
+package com.krok.springboot.dao;
 
 import com.krok.data.EventData;
 import com.krok.error.AppException;
 import com.krok.error.DAOError;
-import com.krok.springboot.dto.service.EventService;
+import com.krok.springboot.dao.service.EventService;
 import org.hibernate.SessionFactory;
 import org.hibernate.query.Query;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -19,7 +19,7 @@ import java.util.List;
 
 @Component
 @Transactional
-public class EventDTO implements EventService {
+public class EventDAO implements EventService {
 
     @Autowired
     SessionFactory sessionFactory;
