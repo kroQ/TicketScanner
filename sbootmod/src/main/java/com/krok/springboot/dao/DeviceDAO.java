@@ -33,9 +33,22 @@ public class DeviceDAO implements DeviceService {
         }
     }
 
+    private DeviceData isExisting(DeviceData deviceData) {
+        Query query;
+        query = sessionFactory.getCurrentSession()
+                .createQuery("FROM DeviceData device WHERE device.androidId=:androidId")
+                .setParameter("androidId", deviceData.getAndroidId());
+        if (query.getResultList().size() > 0) {
+
+            return (DeviceData) query.getResultList().get(0);
+        }
+        return null;
+    }
+
     @Override
     public DeviceData getDeviceById(int id) {
-        return (DeviceData) sessionFactory.getCurrentSession().createQuery("FROM DeviceData device WHERE device.id=:id")
+        return (DeviceData) sessionFactory.getCurrentSession()
+                .createQuery("FROM DeviceData device WHERE device.id=:id")
                 .setParameter("id", id).getSingleResult();
     }
 
@@ -43,13 +56,5 @@ public class DeviceDAO implements DeviceService {
     public boolean deleteDeviceById(int id) {
         return sessionFactory.getCurrentSession().createQuery("DELETE DeviceData WHERE id = :id")
                 .setParameter("id", id).executeUpdate() > 0;
-    }
-
-    private DeviceData isExisting(DeviceData deviceData) {
-        Query query;
-        query = sessionFactory.getCurrentSession()
-                .createQuery("FROM DeviceData device WHERE device.androidId=:androidId")
-                .setParameter("androidId", deviceData.getAndroidId());
-        return (DeviceData) query.getResultList().get(0);
     }
 }

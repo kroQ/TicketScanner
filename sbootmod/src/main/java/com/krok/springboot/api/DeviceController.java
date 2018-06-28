@@ -28,6 +28,7 @@ public class DeviceController {
 
     // ******************** DEVICE API ******************* //
 
+
     @RequestMapping("/device/{id}")
     public String findDevice(@PathVariable("id") int id) {
         try {
@@ -47,11 +48,9 @@ public class DeviceController {
         try {
             deviceService.createOrUpdate(device);
         } catch (AppException e) {
-            logger.info("Device ID: " + device.getId());
             return new ResponseEntity<>(deviceMapper.toDeviceJson(device), HttpStatus.IM_USED);
         }
 
-        logger.info("New Device Registered: " + device.getId());
         deviceJson.setId(device.getId());
         return new ResponseEntity<>(deviceJson, HttpStatus.OK);
     }

@@ -31,7 +31,7 @@ public class EventController {
 
     // ******************** EVENT API ******************* //
 
-    @RequestMapping("/user/event/id/{id}")
+    @RequestMapping("/event/id/{id}")
     public String findEvent(@PathVariable("id") int id) {
         try {
             EventData event = eventService.getEventById(id);
@@ -41,7 +41,7 @@ public class EventController {
         }
     }
 
-    @RequestMapping(value = "/user/event/all/{userId}", method = RequestMethod.GET)
+    @RequestMapping(value = "/event/all/{userId}", method = RequestMethod.GET)
     public ResponseEntity<List<EventJson>> getAllEventsByUserId(@PathVariable int userId) {
         logger.info("Event/all: " + userId);
         try {
@@ -68,7 +68,7 @@ public class EventController {
         }
     }
 
-    @RequestMapping(value = "/user/event/{name}/{code}", method = RequestMethod.GET)
+    @RequestMapping(value = "/event/{name}/{code}", method = RequestMethod.GET)
     public ResponseEntity<EventJson> findEventByName(@PathVariable String name, @PathVariable String code) {
         logger.info("Event/name: " + name + " code: " + code);
         EventMapper eventMapper = new EventMapper();
@@ -90,7 +90,7 @@ public class EventController {
         }
     }
 
-    @RequestMapping(value = "/user/event/", method = RequestMethod.POST)
+    @RequestMapping(value = "/event/", method = RequestMethod.POST)
     public ResponseEntity<EventJson> newEvent(@RequestBody EventJson eventJson) {
         logger.info("Event/: " + eventJson.getName());
         EventMapper eventMapper = new EventMapper();
@@ -107,7 +107,7 @@ public class EventController {
         return new ResponseEntity<>(eventJson, HttpStatus.OK);
     }
 
-    @RequestMapping("/user/event/delete/{id}")
+    @RequestMapping("/event/delete/{id}")
     public String deleteEvent(@PathVariable("id") int id) {
         boolean isDeleted = eventService.deleteEventById(id);
         return isDeleted ? "Deleted: " + id : "Event not exist";
