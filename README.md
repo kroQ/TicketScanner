@@ -22,20 +22,15 @@ Kody QR powinny przypominać format JSON w postaci:
 
 "name":"Mateusz", 
 
-
 "surname":"Krok", 
-
 
 "email":"krok@gmail.com",
 
 "city":"Kraków", 
 
 "street":"Rynek 1",
-
 "frat_nr":"33/4",
-
 "sex":"M",
-
 "birth_date":"31-05-1993",
 
 
