@@ -1,4 +1,4 @@
-#TicketScanner server side
+# TicketScanner server side
 
 Jest to projekt, który stworzyłem na pracę magisterską.
 
