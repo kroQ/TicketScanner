@@ -21,15 +21,28 @@ Sercem aplikacji - biblioteką do skanowania kodów QR - jest biblioteka ZXing a
 Kody QR powinny przypominać format JSON w postaci:
 
 "name":"Mateusz", 
+
+
 "surname":"Krok", 
+
+
 "email":"krok@gmail.com",
+
 "city":"Kraków", 
+
 "street":"Rynek 1",
+
 "frat_nr":"33/4",
+
 "sex":"M",
+
 "birth_date":"31-05-1993",
+
+
 "phone":753159456,
+
 "seat_nr":"F 5445",
+
 "code":"3215DFG-ASDF/E"
 
 Schemat ten można zmienić, edytując klasy Ticket (TicketData, TicketMapper, TicketService itp.) oraz tabelę TICKETS definiowaną w pliku tickets.ddl
